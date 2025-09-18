@@ -95,19 +95,19 @@ const Contact: React.FC = () => {
     {
       icon: Mail,
       title: 'Email Us',
-      details: 'info@clariox.com',
+      details: 'support@clariox.com',
       description: 'Send us an email and we\'ll respond within 24 hours.',
     },
     {
       icon: Phone,
       title: 'Call Us',
-      details: '+1 (555) 123-4567',
+      details: '+91 9860824779',
       description: 'Speak directly with our ERPNext experts.',
     },
     {
       icon: MapPin,
       title: 'Visit Us',
-      details: '123 Business District, Tech City, TC 12345',
+      details: '301 and 302, 41 Elite, Kalewadi Main Road, Pune, India',
       description: 'Schedule an in-person consultation at our office.',
     },
     {
