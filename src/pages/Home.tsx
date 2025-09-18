@@ -1,11 +1,9 @@
 import React, { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, CheckCircle, Users, Building, Clock, Award } from 'lucide-react';
+import { ArrowRight, CheckCircle, Users, Award, Globe, Clock, Building } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import MaskedHeading from '@/components/animations/MaskedHeading';
-import AnimatedParagraph from '@/components/animations/AnimatedParagraph';
-import StaggeredText from '@/components/animations/StaggeredText';
+import { LineMaskReveal, BlurFadeReveal } from '@/components/animations/ScrollReveal';
 import { staggerCards } from '@/lib/gsap-animations';
 
 const Home: React.FC = () => {
@@ -24,17 +22,17 @@ const Home: React.FC = () => {
   const services = [
     {
       title: 'ERPNext Implementation',
-      description: 'End-to-end implementation with minimal disruption to your business operations.',
+      description: 'Our end-to-end implementation service is designed to get you up and running with ERPNext efficiently and with minimal disruption.',
       icon: CheckCircle,
     },
     {
       title: 'Consulting & Assessment',
-      description: 'Deep knowledge of business processes to help make informed decisions.',
+      description: 'Leverage our deep knowledge of business processes and ERPNext to make informed decisions.',
       icon: Users,
     },
     {
-      title: 'Custom Development',
-      description: 'Tailored solutions with custom modules, reports, and features.',
+      title: 'Customization & Integration',
+      description: 'We specialize in tailoring ERPNext to fit your specific requirements, building custom modules, reports, and features.',
       icon: Building,
     },
   ];
@@ -50,70 +48,64 @@ const Home: React.FC = () => {
     <main className="pt-20">
       {/* Hero Section */}
       <section className="min-h-screen flex items-center justify-center bg-gradient-subtle py-20">
-        <div className="container-custom text-center">
+        <div className="container-custom text-center px-4">
           <div className="max-w-4xl mx-auto space-y-8">
-            <MaskedHeading as="h1" className="text-5xl md:text-7xl font-bold gradient-text">
-              Innovating Your Business with Cutting-Edge ERPNext Solutions
-            </MaskedHeading>
+            <LineMaskReveal className="text-4xl md:text-6xl lg:text-7xl font-bold gradient-text">
+              <h1>Clariox Technology: Innovating Your Business with Cutting-Edge ERPNext Solutions</h1>
+            </LineMaskReveal>
             
-            <StaggeredText 
-              as="p" 
-              className="text-xl md:text-2xl text-muted-foreground font-light"
-            >
-              One System, Zero Blind Spots. Simplify your business, amplify your growth.
-            </StaggeredText>
+            <LineMaskReveal delay={200} className="text-lg md:text-xl lg:text-2xl text-muted-foreground font-light">
+              <h2>One System, Zero Blind Spots. Simplify your business, amplify your growth.</h2>
+            </LineMaskReveal>
             
-            <AnimatedParagraph 
-              className="text-lg text-muted-foreground max-w-2xl mx-auto"
-              delay={0.5}
-            >
-              Transform your organization with our comprehensive ERPNext solutions. 
-              We deliver end-to-end implementation, customization, and support services 
-              that streamline operations and accelerate growth.
-            </AnimatedParagraph>
+            <BlurFadeReveal delay={400} className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
+              <p>At Clariox Technologies, we specialize in delivering comprehensive ERPNext solutions that streamline your operations, reduce costs, and accelerate growth. Our full-cycle approach ensures your business thrives.</p>
+            </BlurFadeReveal>
             
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-8">
-              <Button 
-                asChild 
-                size="lg" 
-                className="bg-gradient-primary hover:opacity-90 text-white shadow-elegant hover:shadow-glow transition-all duration-300 group"
-              >
-                <Link to="/contact">
-                  Book a Call
-                  <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                </Link>
-              </Button>
-              
-              <Button 
-                asChild 
-                variant="outline" 
-                size="lg"
-                className="border-primary text-primary hover:bg-primary hover:text-primary-foreground"
-              >
-                <Link to="/services">
-                  Explore Services
-                </Link>
-              </Button>
-            </div>
+            <BlurFadeReveal delay={600}>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4 md:pt-8">
+                <Button 
+                  asChild 
+                  size="lg" 
+                  className="w-full sm:w-auto bg-gradient-primary hover:opacity-90 text-white shadow-elegant hover:shadow-glow transition-all duration-300 group text-base md:text-lg px-6 md:px-8 py-3 md:py-4"
+                >
+                  <Link to="/contact">
+                    Book a Call
+                    <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                  </Link>
+                </Button>
+                
+                <Button 
+                  asChild 
+                  variant="outline" 
+                  size="lg"
+                  className="w-full sm:w-auto border-primary text-primary hover:bg-primary hover:text-primary-foreground text-base md:text-lg px-6 md:px-8 py-3 md:py-4"
+                >
+                  <Link to="/services">
+                    Explore Services
+                  </Link>
+                </Button>
+              </div>
+            </BlurFadeReveal>
           </div>
         </div>
       </section>
 
       {/* Stats Section */}
-      <section className="py-20 bg-background">
-        <div className="container-custom">
-          <div ref={statsRef} className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
+      <section className="py-16 md:py-20 bg-background">
+        <div className="container-custom px-4">
+          <div ref={statsRef} className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 lg:gap-8">
             {stats.map((stat, index) => (
               <Card key={index} className="card-item text-center border-0 shadow-card hover:shadow-elegant transition-all duration-300">
-                <CardContent className="p-6 space-y-4">
+                <CardContent className="p-4 md:p-6 space-y-3 md:space-y-4">
                   <div className="flex justify-center">
-                    <div className="p-3 bg-primary/10 rounded-full">
-                      <stat.icon className="h-6 w-6 text-primary" />
+                    <div className="p-2 md:p-3 bg-primary/10 rounded-full">
+                      <stat.icon className="h-4 w-4 md:h-6 md:w-6 text-primary" />
                     </div>
                   </div>
                   <div>
-                    <h3 className="text-3xl font-bold font-heading text-primary">{stat.number}</h3>
-                    <p className="text-muted-foreground font-body text-sm">{stat.label}</p>
+                    <h3 className="text-xl md:text-3xl font-bold font-heading text-primary">{stat.number}</h3>
+                    <p className="text-muted-foreground font-body text-xs md:text-sm">{stat.label}</p>
                   </div>
                 </CardContent>
               </Card>
@@ -123,41 +115,40 @@ const Home: React.FC = () => {
       </section>
 
       {/* Featured Services */}
-      <section className="py-20 bg-gradient-subtle">
-        <div className="container-custom">
-          <div className="text-center space-y-6 mb-16">
-            <MaskedHeading as="h2" className="text-4xl md:text-5xl font-bold">
-              Our Core Services
-            </MaskedHeading>
-            <AnimatedParagraph className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              We specialize in delivering comprehensive ERPNext solutions that streamline 
-              operations, reduce costs, and accelerate growth across all industries.
-            </AnimatedParagraph>
+      <section className="py-16 md:py-20 bg-gradient-subtle">
+        <div className="container-custom px-4">
+          <div className="text-center space-y-6 mb-12 md:mb-16">
+            <LineMaskReveal className="text-3xl md:text-4xl lg:text-5xl font-bold">
+              <h2>Our Core Services</h2>
+            </LineMaskReveal>
+            <BlurFadeReveal className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
+              <p>We specialize in delivering comprehensive ERPNext solutions that streamline operations, reduce costs, and accelerate growth across all industries.</p>
+            </BlurFadeReveal>
           </div>
 
-          <div ref={servicesRef} className="grid md:grid-cols-3 gap-8">
+          <div ref={servicesRef} className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
             {services.map((service, index) => (
               <Card 
                 key={index} 
                 className="card-item group hover:shadow-elegant hover:-translate-y-2 transition-all duration-300 border-0 shadow-card"
               >
-                <CardContent className="p-8 space-y-6">
+                <CardContent className="p-6 md:p-8 space-y-6">
                   <div className="flex justify-center">
-                    <div className="p-4 bg-primary/10 rounded-full group-hover:bg-primary/20 transition-colors">
-                      <service.icon className="h-8 w-8 text-primary" />
+                    <div className="p-3 md:p-4 bg-primary/10 rounded-full group-hover:bg-primary/20 transition-colors">
+                      <service.icon className="h-6 w-6 md:h-8 md:w-8 text-primary" />
                     </div>
                   </div>
                   <div className="text-center space-y-4">
-                    <h3 className="text-xl font-semibold font-heading">{service.title}</h3>
-                    <p className="text-muted-foreground font-body leading-relaxed">{service.description}</p>
+                    <h3 className="text-lg md:text-xl font-semibold font-heading">{service.title}</h3>
+                    <p className="text-sm md:text-base text-muted-foreground font-body leading-relaxed">{service.description}</p>
                   </div>
                 </CardContent>
               </Card>
             ))}
           </div>
 
-          <div className="text-center mt-12">
-            <Button asChild size="lg" variant="outline" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground">
+          <div className="text-center mt-8 md:mt-12">
+            <Button asChild size="lg" variant="outline" className="w-full sm:w-auto border-primary text-primary hover:bg-primary hover:text-primary-foreground">
               <Link to="/services">
                 View All Services
                 <ArrowRight className="ml-2 h-4 w-4" />
@@ -168,39 +159,40 @@ const Home: React.FC = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-primary text-primary-foreground">
-        <div className="container-custom text-center">
-          <div className="max-w-3xl mx-auto space-y-8">
-            <MaskedHeading as="h2" className="text-4xl md:text-5xl font-bold text-white">
-              Ready to Transform Your Business?
-            </MaskedHeading>
-            <AnimatedParagraph className="text-lg text-primary-foreground/90">
-              Join hundreds of successful businesses that have transformed their operations 
-              with our ERPNext solutions. Get started with a free consultation today.
-            </AnimatedParagraph>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Button 
-                asChild 
-                size="lg" 
-                variant="secondary" 
-                className="bg-white text-primary hover:bg-white/90 shadow-elegant"
-              >
-                <Link to="/contact">
-                  Get Free Consultation
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
-              </Button>
-              <Button 
-                asChild 
-                size="lg" 
-                variant="outline" 
-                className="border-white text-white hover:bg-white hover:text-primary"
-              >
-                <Link to="/customers">
-                  View Success Stories
-                </Link>
-              </Button>
-            </div>
+      <section className="py-16 md:py-20 bg-primary text-primary-foreground">
+        <div className="container-custom text-center px-4">
+          <div className="max-w-3xl mx-auto space-y-6 md:space-y-8">
+            <LineMaskReveal className="text-3xl md:text-4xl lg:text-5xl font-bold text-white">
+              <h2>Ready to Transform Your Business?</h2>
+            </LineMaskReveal>
+            <BlurFadeReveal className="text-base md:text-lg text-primary-foreground/90">
+              <p>Join hundreds of successful businesses that have transformed their operations with our ERPNext solutions. Get started with a free consultation today.</p>
+            </BlurFadeReveal>
+            <BlurFadeReveal delay={200}>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <Button 
+                  asChild 
+                  size="lg" 
+                  variant="secondary" 
+                  className="w-full sm:w-auto bg-white text-primary hover:bg-white/90 shadow-elegant text-base md:text-lg px-6 md:px-8 py-3 md:py-4"
+                >
+                  <Link to="/contact">
+                    Get Free Consultation
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Link>
+                </Button>
+                <Button 
+                  asChild 
+                  size="lg" 
+                  variant="outline" 
+                  className="w-full sm:w-auto border-white text-white hover:bg-white hover:text-primary text-base md:text-lg px-6 md:px-8 py-3 md:py-4"
+                >
+                  <Link to="/customers">
+                    View Success Stories
+                  </Link>
+                </Button>
+              </div>
+            </BlurFadeReveal>
           </div>
         </div>
       </section>

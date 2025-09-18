@@ -10,12 +10,15 @@ import {
   Database, 
   GraduationCap, 
   HeadphonesIcon,
-  ArrowRight
+  ArrowRight,
+  CheckCircle,
+  Settings,
+  BarChart3,
+  Zap
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import MaskedHeading from '@/components/animations/MaskedHeading';
-import AnimatedParagraph from '@/components/animations/AnimatedParagraph';
+import { LineMaskReveal, BlurFadeReveal } from '@/components/animations/ScrollReveal';
 import { staggerCards } from '@/lib/gsap-animations';
 
 const Services: React.FC = () => {
@@ -87,25 +90,23 @@ const Services: React.FC = () => {
   return (
     <main className="pt-20">
       {/* Hero Section */}
-      <section className="py-20 bg-gradient-subtle">
-        <div className="container-custom text-center">
-          <div className="max-w-4xl mx-auto space-y-8">
-            <MaskedHeading as="h1" className="text-5xl md:text-6xl font-bold">
-              Our Services
-            </MaskedHeading>
-            <AnimatedParagraph className="text-xl text-muted-foreground">
-              At Clariox Technologies, we specialize in delivering comprehensive ERPNext solutions 
-              that streamline your operations, reduce costs, and accelerate growth. Our full-cycle 
-              approach ensures your business thrives.
-            </AnimatedParagraph>
+      <section className="py-16 md:py-20 bg-gradient-subtle">
+        <div className="container-custom text-center px-4">
+          <div className="max-w-4xl mx-auto space-y-6 md:space-y-8">
+            <LineMaskReveal className="text-4xl md:text-5xl lg:text-6xl font-bold">
+              <h1>Our Services</h1>
+            </LineMaskReveal>
+            <BlurFadeReveal className="text-base md:text-lg lg:text-xl text-muted-foreground">
+              <p>At Clariox Technologies, we specialize in delivering comprehensive ERPNext solutions that streamline your operations, reduce costs, and accelerate growth. Our full-cycle approach ensures your business thrives.</p>
+            </BlurFadeReveal>
           </div>
         </div>
       </section>
 
       {/* Services Grid */}
-      <section className="py-20">
-        <div className="container-custom">
-          <div ref={servicesRef} className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <section className="py-16 md:py-20">
+        <div className="container-custom px-4">
+          <div ref={servicesRef} className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 md:gap-8">
             {services.map((service, index) => (
               <Card 
                 key={index} 
@@ -113,22 +114,22 @@ const Services: React.FC = () => {
               >
                 <CardHeader className="text-center pb-4">
                   <div className="flex justify-center mb-4">
-                    <div className="p-4 bg-primary/10 rounded-full group-hover:bg-primary/20 transition-colors">
-                      <service.icon className="h-8 w-8 text-primary" />
+                    <div className="p-3 md:p-4 bg-primary/10 rounded-full group-hover:bg-primary/20 transition-colors">
+                      <service.icon className="h-6 w-6 md:h-8 md:w-8 text-primary" />
                     </div>
                   </div>
-                  <CardTitle className="text-xl font-heading">{service.title}</CardTitle>
+                  <CardTitle className="text-lg md:text-xl font-heading">{service.title}</CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-6">
-                  <p className="text-muted-foreground font-body leading-relaxed">
+                <CardContent className="space-y-4 md:space-y-6">
+                  <p className="text-sm md:text-base text-muted-foreground font-body leading-relaxed">
                     {service.description}
                   </p>
                   <div className="space-y-2">
-                    <h4 className="font-semibold text-sm font-heading">Key Features:</h4>
+                    <h4 className="font-semibold text-xs md:text-sm font-heading">Key Features:</h4>
                     <ul className="space-y-1">
                       {service.features.map((feature, featureIndex) => (
-                        <li key={featureIndex} className="text-sm text-muted-foreground font-body flex items-center">
-                          <div className="w-1.5 h-1.5 bg-primary rounded-full mr-3 flex-shrink-0" />
+                        <li key={featureIndex} className="text-xs md:text-sm text-muted-foreground font-body flex items-center">
+                          <CheckCircle className="h-3 w-3 md:h-4 md:w-4 text-primary mr-2 md:mr-3 flex-shrink-0" />
                           {feature}
                         </li>
                       ))}
@@ -140,38 +141,39 @@ const Services: React.FC = () => {
           </div>
 
           {/* CTA Section */}
-          <div className="text-center mt-20 py-16 bg-gradient-subtle rounded-2xl">
-            <div className="max-w-3xl mx-auto space-y-8">
-              <MaskedHeading as="h2" className="text-4xl md:text-5xl font-bold">
-                Ready to Get Started?
-              </MaskedHeading>
-              <AnimatedParagraph className="text-lg text-muted-foreground">
-                Let's discuss how our services can transform your business operations. 
-                Schedule a free consultation with our experts today.
-              </AnimatedParagraph>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                <Button 
-                  asChild 
-                  size="lg" 
-                  className="bg-gradient-primary hover:opacity-90 text-white shadow-elegant hover:shadow-glow transition-all duration-300 group"
-                >
-                  <Link to="/contact">
-                    Book Free Consultation
-                    <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                  </Link>
-                </Button>
-                
-                <Button 
-                  asChild 
-                  variant="outline" 
-                  size="lg"
-                  className="border-primary text-primary hover:bg-primary hover:text-primary-foreground"
-                >
-                  <Link to="/customers">
-                    View Case Studies
-                  </Link>
-                </Button>
-              </div>
+          <div className="text-center mt-16 md:mt-20 py-12 md:py-16 bg-gradient-subtle rounded-2xl">
+            <div className="max-w-3xl mx-auto space-y-6 md:space-y-8 px-4">
+              <LineMaskReveal className="text-3xl md:text-4xl lg:text-5xl font-bold">
+                <h2>Ready to Get Started?</h2>
+              </LineMaskReveal>
+              <BlurFadeReveal className="text-base md:text-lg text-muted-foreground">
+                <p>Let's discuss how our services can transform your business operations. Schedule a free consultation with our experts today.</p>
+              </BlurFadeReveal>
+              <BlurFadeReveal delay={200}>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                  <Button 
+                    asChild 
+                    size="lg" 
+                    className="w-full sm:w-auto bg-gradient-primary hover:opacity-90 text-white shadow-elegant hover:shadow-glow transition-all duration-300 group text-base md:text-lg px-6 md:px-8 py-3 md:py-4"
+                  >
+                    <Link to="/contact">
+                      Book Free Consultation
+                      <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                    </Link>
+                  </Button>
+                  
+                  <Button 
+                    asChild 
+                    variant="outline" 
+                    size="lg"
+                    className="w-full sm:w-auto border-primary text-primary hover:bg-primary hover:text-primary-foreground text-base md:text-lg px-6 md:px-8 py-3 md:py-4"
+                  >
+                    <Link to="/customers">
+                      View Case Studies
+                    </Link>
+                  </Button>
+                </div>
+              </BlurFadeReveal>
             </div>
           </div>
         </div>

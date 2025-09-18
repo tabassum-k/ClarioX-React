@@ -175,12 +175,16 @@ export const initNavbarScroll = (navbar: HTMLElement) => {
   
   const handleScroll = () => {
     const currentScroll = window.pageYOffset;
+    const isDark = document.documentElement.classList.contains('dark');
     
     if (currentScroll > 50) {
+      const backgroundColor = isDark ? "rgba(15, 17, 21, 0.95)" : "rgba(255, 255, 255, 0.95)";
+      const borderColor = isDark ? "rgba(255, 255, 255, 0.1)" : "rgba(0, 0, 0, 0.1)";
+      
       gsap.to(navbar, {
-        backgroundColor: "rgba(255, 255, 255, 0.95)",
+        backgroundColor,
         backdropFilter: "blur(20px)",
-        borderBottom: "1px solid rgba(0, 0, 0, 0.1)",
+        borderBottom: `1px solid ${borderColor}`,
         duration: 0.3,
         ease: "power2.out"
       });
