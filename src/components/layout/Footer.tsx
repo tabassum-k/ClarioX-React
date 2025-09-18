@@ -102,7 +102,7 @@ const Footer: React.FC = () => {
             <div className="space-y-3">
               <div className="flex items-center space-x-3 text-muted-foreground">
                 <Mail className="h-4 w-4 text-primary flex-shrink-0" />
-                <span className="font-body text-sm">support@clariox.com</span>
+                <span className="font-body text-sm">info@clariox.in</span>
               </div>
               <div className="flex items-center space-x-3 text-muted-foreground">
                 <Phone className="h-4 w-4 text-primary flex-shrink-0" />
@@ -111,14 +111,10 @@ const Footer: React.FC = () => {
               <div className="flex items-start space-x-3 text-muted-foreground">
                 <MapPin className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
                 <span className="font-body text-sm leading-relaxed">
-                  3rd floor<br />
-                  Office No 301 and 302<br />
-                  41 Elite<br />
-                  Kalewadi Main Road<br />
-                  Ashok Nagar, Dattwadi<br />
+                  Office No 301 & 302<br />
+                  Krisala Elite 41<br />              
                   Tathawade<br />
-                  Pimpri Chinchwad<br />
-                  Pune,
+                  PCMC Pune,
                   Maharashtra, India.
                   411033.
                 </span>

@@ -95,7 +95,7 @@ const Contact: React.FC = () => {
     {
       icon: Mail,
       title: 'Email Us',
-      details: 'support@clariox.com',
+      details: 'info@clariox.in',
       description: 'Send us an email and we\'ll respond within 24 hours.',
     },
     {
@@ -107,7 +107,7 @@ const Contact: React.FC = () => {
     {
       icon: MapPin,
       title: 'Visit Us',
-      details: '301 and 302, 41 Elite, Kalewadi Main Road, Pune, India',
+      details: 'Office No 301 & 302, Krisala Elite 41, Tathawade, PCMC Pune, Maharashtra, India. 411033.',
       description: 'Schedule an in-person consultation at our office.',
     },
     {
