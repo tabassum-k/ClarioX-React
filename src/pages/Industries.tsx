@@ -32,6 +32,7 @@ const Industries: React.FC = () => {
     {
       icon: Factory,
       title: 'Manufacturing',
+      image: 'https://www.shoutnhike.com/blog/wp-content/uploads/2024/02/Shoutnhike-6.jpg',
       category: 'production',
       description: 'From managing Bills of Materials (BOM) and production planning to tracking work orders and maintaining inventory, our solutions provide complete visibility and control.',
       benefits: [
@@ -45,6 +46,7 @@ const Industries: React.FC = () => {
     {
       icon: HardHat,
       title: 'Engineering, Procurement & Construction (EPC)',
+      image: 'https://konstelec.com/images/services/construction-commissioning.jpg',
       category: 'construction',
       description: 'We help you manage complex projects by tracking progress, handling procurement, and ensuring projects stay on time and on budget.',
       benefits: [
@@ -58,6 +60,7 @@ const Industries: React.FC = () => {
     {
       icon: Heart,
       title: 'Non-Profit Organization',
+      image: 'https://www.suttlecpas.com/wp-content/uploads/2019/01/Suttle-and-Stalnaker-Non-Profit-Organizations.jpg',
       category: 'nonprofit',
       description: 'We help non-profits operate more efficiently by managing donations, tracking grants, and automating financial reporting.',
       benefits: [
@@ -71,6 +74,7 @@ const Industries: React.FC = () => {
     {
       icon: Milk,
       title: 'Dairy Industry',
+      image: 'https://upload.wikimedia.org/wikipedia/commons/3/3f/Melkkarussell.jpg',
       category: 'food',
       description: 'Our specialized solutions for the dairy industry help manage milk procurement, quality control, production, and distribution, ensuring efficiency from farm to shelf.',
       benefits: [
@@ -84,6 +88,7 @@ const Industries: React.FC = () => {
     {
       icon: TrendingUp,
       title: 'Sales & Distribution',
+      image: 'https://staticlearn.shine.com/l/m/images/blog/mobile/sales_and_distribution_management_process.webp',
       category: 'sales',
       description: 'Our solutions enable you to manage your entire sales cycle, from lead generation and quotation to order management and CRM.',
       benefits: [
@@ -97,6 +102,7 @@ const Industries: React.FC = () => {
     {
       icon: Users,
       title: 'Services Industry',
+      image: 'https://assets.entrepreneur.com/content/3x2/2000/1730979225-ManufacturingThumbnail.jpg',
       category: 'services',
       description: 'Improve project management and client delivery by tracking billable hours, managing project tasks, and handling client invoicing.',
       benefits: [
@@ -110,6 +116,7 @@ const Industries: React.FC = () => {
     {
       icon: Building,
       title: 'Public Sector',
+      image: 'https://static.everspring-kent.production.k2.m1.brightspot.cloud/dims4/default/ade1647/2147483647/strip/true/crop/1240x500+0+0/resize/1240x500!/quality/90/?url=https%3A%2F%2Fk2-prod-everspring-kent.s3.us-east-1.amazonaws.com%2Fbrightspot%2F3d%2F1a%2F177a6e6e4130a842a22f5018d9b5%2Fdifferences-between-the-private-and-public-sectors.webp',
       category: 'government',
       description: 'We provide reliable and secure solutions to help you manage procurement processes, track public funds, and ensure compliance.',
       benefits: [
@@ -172,8 +179,9 @@ const Industries: React.FC = () => {
                 className={cn(
                   "transition-all duration-300",
                   selectedFilter === filter.id
-                    ? "bg-primary text-primary-foreground shadow-elegant"
-                    : "border-primary/20 text-muted-foreground hover:border-primary hover:text-primary"
+                  ? "bg-primary text-primary-foreground shadow-elegant"
+                  : "border-primary/20 text-muted-foreground hover:bg-primary hover:text-primary-foreground"
+
                 )}
               >
                 {filter.label}
@@ -186,47 +194,72 @@ const Industries: React.FC = () => {
       {/* Industries Grid */}
       <section className="py-20">
         <div className="container-custom">
-          <div ref={industriesRef} className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredIndustries.map((industry, index) => (
-              <Card 
-                key={`${industry.title}-${selectedFilter}`} 
-                className="card-item group hover:shadow-elegant hover:-translate-y-2 transition-all duration-300 border-0 shadow-card h-full"
-              >
-                <CardHeader className="text-center pb-4">
-                  <div className="flex justify-center mb-4">
-                    <div className="p-4 bg-primary/10 rounded-full group-hover:bg-primary/20 transition-colors">
-                      <industry.icon className="h-8 w-8 text-primary" />
-                    </div>
-                  </div>
-                  <CardTitle className="text-xl font-heading">{industry.title}</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-6">
-                  <p className="text-muted-foreground font-body leading-relaxed">
-                    {industry.description}
-                  </p>
-                  
-                  <div className="space-y-3">
-                    <h4 className="font-semibold text-sm font-heading">Key Benefits:</h4>
-                    <ul className="space-y-2">
-                      {industry.benefits.map((benefit, benefitIndex) => (
-                        <li key={benefitIndex} className="text-sm text-muted-foreground font-body flex items-center">
-                          <div className="w-1.5 h-1.5 bg-primary rounded-full mr-3 flex-shrink-0" />
-                          {benefit}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+          <div
+  ref={industriesRef}
+  className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+>
+  {filteredIndustries.map((industry, index) => (
+    <Card
+      key={`${industry.title}-${selectedFilter}`}
+      className="group relative overflow-hidden rounded-2xl border border-border bg-card shadow-card hover:shadow-elegant hover:-translate-y-2 transition-all duration-500"
+    >
+      {/* Image header */}
+      <div className="relative h-44 w-full overflow-hidden">
+        <img
+          src={industry.image}
+          alt={industry.title}
+          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/40 to-transparent"></div>
+      </div>
 
-                  <div className="pt-4 border-t border-border">
-                    <div className="bg-primary/5 rounded-lg p-4">
-                      <p className="text-xs font-semibold text-primary font-heading mb-1">SUCCESS STORY</p>
-                      <p className="text-sm text-muted-foreground font-body">{industry.caseStudy}</p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
+      {/* Title + short description */}
+      <CardHeader className="px-5 pt-4 pb-3">
+        <CardTitle className="text-lg font-heading text-foreground text-center">
+          {industry.title}
+        </CardTitle>
+        <p className="mt-2 text-sm text-muted-foreground font-body line-clamp-2 text-center">
+          {industry.description}
+        </p>
+      </CardHeader>
+
+      {/* Hover Overlay Reveal */}
+      <div className="absolute inset-0 flex flex-col justify-center bg-background/95 backdrop-blur-md opacity-0 group-hover:opacity-100 transition-all duration-500 px-6 py-5">
+        {/* Key Benefits */}
+        <div className="space-y-2">
+          <h4 className="font-semibold text-sm font-heading text-foreground">
+            Key Benefits:
+          </h4>
+          <ul className="space-y-1">
+            {industry.benefits.map((benefit, i) => (
+              <li
+                key={i}
+                className="flex items-start text-sm text-muted-foreground font-body"
+              >
+                <div className="mt-1 mr-2 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-primary shadow-sm" />
+                {benefit}
+              </li>
             ))}
-          </div>
+          </ul>
+        </div>
+
+        {/* Case Study Highlight */}
+        <div className="mt-4 rounded-lg bg-primary/5 p-3 group-hover:bg-primary/10 transition-colors">
+          <p className="text-xs font-semibold text-primary font-heading mb-1">
+            SUCCESS STORY
+          </p>
+          <p className="text-sm text-muted-foreground font-body leading-relaxed line-clamp-3">
+            {industry.caseStudy}
+          </p>
+        </div>
+      </div>
+
+      {/* Animated border glow */}
+      <div className="absolute inset-0 rounded-2xl border-2 border-transparent group-hover:border-primary/40 transition-all duration-500 pointer-events-none"></div>
+    </Card>
+  ))}
+</div>
+
 
           {filteredIndustries.length === 0 && (
             <div className="text-center py-20">

@@ -83,10 +83,10 @@ const Customers: React.FC = () => {
       icon: Clock
     },
     {
-      client: 'Global Dairy Co.',
-      industry: 'Dairy & Food Processing',
-      challenge: 'Quality control and traceability in dairy production',
-      solution: 'Custom quality management system with full traceability from farm to consumer',
+      client: 'Krisala Builders',
+      industry: 'Construction',
+      challenge: 'Quality control and traceability in construction projects',
+      solution: 'Custom project management system with full traceability from planning to execution',
       results: [
         { metric: '99.8%', description: 'Quality compliance rate' },
         { metric: '45%', description: 'Faster quality testing' },
@@ -172,54 +172,79 @@ const Customers: React.FC = () => {
 
           <div ref={caseStudiesRef} className="space-y-12">
             {caseStudies.map((study, index) => (
-              <Card 
-                key={index} 
-                className="card-item hover:shadow-elegant transition-all duration-300 border-0 shadow-card"
-              >
-                <CardContent className="p-8">
-                  <div className="grid lg:grid-cols-2 gap-8 items-start">
-                    <div className="space-y-6">
-                      <div className="flex items-center space-x-4">
-                        <div className="p-3 bg-primary/10 rounded-full">
-                          <study.icon className="h-6 w-6 text-primary" />
-                        </div>
-                        <div>
-                          <h3 className="text-2xl font-bold font-heading">{study.client}</h3>
-                          <p className="text-primary font-body font-medium">{study.industry}</p>
-                        </div>
-                      </div>
-                      
-                      <div className="space-y-4">
-                        <div>
-                          <h4 className="font-semibold font-heading text-foreground mb-2">Challenge</h4>
-                          <p className="text-muted-foreground font-body leading-relaxed">{study.challenge}</p>
-                        </div>
-                        
-                        <div>
-                          <h4 className="font-semibold font-heading text-foreground mb-2">Solution</h4>
-                          <p className="text-muted-foreground font-body leading-relaxed">{study.solution}</p>
-                        </div>
-                      </div>
-                    </div>
-                    
-                    <div className="space-y-4">
-                      <h4 className="font-semibold font-heading text-foreground text-center">Results Achieved</h4>
-                      <div className="grid grid-cols-2 gap-4">
-                        {study.results.map((result, resultIndex) => (
-                          <div key={resultIndex} className="text-center p-4 bg-primary/5 rounded-lg">
-                            <div className="text-3xl font-bold text-primary font-heading mb-1">
-                              {result.metric}
-                            </div>
-                            <div className="text-xs text-muted-foreground font-body">
-                              {result.description}
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
+              <Card
+  key={index}
+  className="group relative overflow-hidden rounded-2xl border border-border bg-card shadow-card hover:shadow-elegant hover:-translate-y-2 transition-all duration-500"
+>
+  <CardContent className="p-8">
+    <div className="grid lg:grid-cols-2 gap-10 items-start">
+      {/* Left Side - Client Info + Story */}
+      <div className="space-y-8">
+        {/* Client Info */}
+        <div className="flex items-center space-x-5">
+          <div className="p-4 bg-primary/10 rounded-full group-hover:bg-primary/20 transition-colors">
+            <study.icon className="h-7 w-7 text-primary" />
+          </div>
+          <div>
+            <h3 className="text-xl lg:text-2xl font-bold font-heading text-foreground">
+              {study.client}
+            </h3>
+            <p className="text-sm text-primary font-medium font-body">
+              {study.industry}
+            </p>
+          </div>
+        </div>
+
+        {/* Challenge + Solution */}
+        <div className="space-y-6">
+          <div>
+            <h4 className="font-semibold font-heading text-foreground mb-1">
+              Challenge
+            </h4>
+            <p className="text-sm text-muted-foreground font-body leading-relaxed">
+              {study.challenge}
+            </p>
+          </div>
+
+          <div>
+            <h4 className="font-semibold font-heading text-foreground mb-1">
+              Solution
+            </h4>
+            <p className="text-sm text-muted-foreground font-body leading-relaxed">
+              {study.solution}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Right Side - Results */}
+      <div className="space-y-6">
+        <h4 className="font-semibold font-heading text-foreground text-center">
+          Results Achieved
+        </h4>
+        <div className="grid grid-cols-2 gap-5">
+          {study.results.map((result, resultIndex) => (
+            <div
+              key={resultIndex}
+              className="rounded-xl bg-primary/5 p-5 text-center transition-all duration-300 group-hover:bg-primary/10"
+            >
+              <div className="text-2xl lg:text-3xl font-bold text-primary font-heading mb-1">
+                {result.metric}
+              </div>
+              <div className="text-xs lg:text-sm text-muted-foreground font-body">
+                {result.description}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </CardContent>
+
+  {/* Glow Border Animation */}
+  <div className="absolute inset-0 rounded-2xl border-2 border-transparent group-hover:border-primary/40 transition-all duration-500 pointer-events-none"></div>
+</Card>
+
             ))}
           </div>
         </div>
@@ -253,7 +278,7 @@ const Customers: React.FC = () => {
                 asChild 
                 size="lg" 
                 variant="outline" 
-                className="border-white text-white hover:bg-white hover:text-primary"
+                className="w-full sm:w-auto border-primary text-primary hover:bg-[rgba(255,255,255,0.1)] hover:text-primary-foreground text-base md:text-lg px-6 md:px-8 py-3 md:py-4"
               >
                 <Link to="/services">
                   Explore Our Services

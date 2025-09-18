@@ -45,9 +45,9 @@ const Home: React.FC = () => {
   ];
 
   return (
-    <main className="pt-20">
+    <main>
       {/* Hero Section */}
-      <section className="min-h-screen flex items-center justify-center bg-gradient-subtle py-20">
+      <section className="min-h-screen flex items-center justify-center bg-gradient-subtle ">
         <div className="container-custom text-center px-4">
           <div className="max-w-4xl mx-auto space-y-8">
             <LineMaskReveal className="text-4xl md:text-6xl lg:text-7xl font-bold gradient-text">
@@ -185,7 +185,7 @@ const Home: React.FC = () => {
                   asChild 
                   size="lg" 
                   variant="outline" 
-                  className="w-full sm:w-auto border-white text-white hover:bg-white hover:text-primary text-base md:text-lg px-6 md:px-8 py-3 md:py-4"
+                  className="w-full sm:w-auto border-primary text-primary hover:bg-[rgba(255,255,255,0.1)] hover:text-primary-foreground text-base md:text-lg px-6 md:px-8 py-3 md:py-4"
                 >
                   <Link to="/customers">
                     View Success Stories

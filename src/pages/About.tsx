@@ -266,7 +266,7 @@ const About: React.FC = () => {
                   asChild 
                   size="lg" 
                   variant="outline" 
-                  className="w-full sm:w-auto border-white text-white hover:bg-white hover:text-primary text-base md:text-lg px-6 md:px-8 py-3 md:py-4"
+                  className="w-full sm:w-auto border-primary text-primary hover:bg-[rgba(255,255,255,0.1)] hover:text-primary-foreground text-base md:text-lg px-6 md:px-8 py-3 md:py-4"
                 >
                   <Link to="/customers">
                     See Our Work

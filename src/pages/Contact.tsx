@@ -275,11 +275,11 @@ const Contact: React.FC = () => {
                   of the business district with easy access to public transportation.
                 </p>
               </div>
-              
+            
               <Card className="overflow-hidden shadow-elegant border-0">
                 <iframe
                   ref={mapRef}
-                  data-src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.1422937950147!2d-73.98731968482413!3d40.75889497932681!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25855c6480299%3A0x55194ec5a1ae072e!2sTimes+Square!5e0!3m2!1sen!2sus!4v1645564756716!5m2!1sen!2sus"
+                  data-src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3879.2911455386165!2d73.75017559999999!3d18.6266256!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2b96584570a01%3A0x573013d7d8632530!2sKrisala%2041%20Elite!5e1!3m2!1sen!2sin!4v1758209282622!5m2!1sen!2sin"
                   width="100%"
                   height="400"
                   style={{ border: 0 }}
