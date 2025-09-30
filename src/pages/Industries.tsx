@@ -1,15 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { 
-  Factory, 
-  HardHat, 
-  Heart, 
-  Milk, 
-  TrendingUp, 
-  Users, 
-  Building, 
-  ArrowRight,
-  Filter
+  Factory, HardHat, Heart, Milk, TrendingUp, Users, Building, ArrowRight, Filter
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -147,18 +139,25 @@ const Industries: React.FC = () => {
   return (
     <main className="pt-20">
       {/* Hero Section */}
-      <section className="py-20 bg-gradient-subtle">
-        <div className="container-custom text-center">
-          <div className="max-w-4xl mx-auto space-y-8">
-            <MaskedHeading as="h1" className="text-5xl md:text-6xl font-bold">
-              Industries We Serve
-            </MaskedHeading>
-            <AnimatedParagraph className="text-xl text-muted-foreground">
-              We go beyond software implementation. We engineer specialized ERPNext solutions 
-              that address your industry's unique demands, solving your biggest challenges 
-              and driving new levels of efficiency.
-            </AnimatedParagraph>
-          </div>
+      <section
+        className="relative py-28 text-center overflow-hidden"
+        style={{
+          backgroundImage: "url('https://www.shoutnhike.com/blog/wp-content/uploads/2024/02/Shoutnhike-6.jpg')",
+          backgroundAttachment: "fixed",
+          backgroundSize: "cover",
+          backgroundPosition: "center"
+        }}
+      >
+        <div className="absolute inset-0 bg-black/40 z-0" />
+        <div className="relative z-10 max-w-3xl mx-auto p-8 md:p-12 rounded-xl space-y-6 md:space-y-8">
+          <MaskedHeading as="h1" className="text-4xl md:text-5xl lg:text-6xl font-bold text-white">
+            Industries We Serve
+          </MaskedHeading>
+          <AnimatedParagraph className="text-lg md:text-xl text-white/90 leading-relaxed">
+            We go beyond software implementation. We engineer specialized ERPNext solutions 
+            that address your industry's unique demands, solving your biggest challenges 
+            and driving new levels of efficiency.
+          </AnimatedParagraph>
         </div>
       </section>
 
@@ -170,7 +169,7 @@ const Industries: React.FC = () => {
             <span className="font-heading font-medium text-foreground">Filter by Industry:</span>
           </div>
           <div className="flex flex-wrap justify-center gap-3">
-            {filters.map((filter) => (
+            {filters.map(filter => (
               <Button
                 key={filter.id}
                 onClick={() => setSelectedFilter(filter.id)}
@@ -179,9 +178,8 @@ const Industries: React.FC = () => {
                 className={cn(
                   "transition-all duration-300",
                   selectedFilter === filter.id
-                  ? "bg-primary text-primary-foreground shadow-elegant"
-                  : "border-primary/20 text-muted-foreground hover:bg-primary hover:text-primary-foreground"
-
+                    ? "bg-primary text-primary-foreground shadow-elegant"
+                    : "border-primary/20 text-muted-foreground hover:bg-primary hover:text-primary-foreground"
                 )}
               >
                 {filter.label}
@@ -194,106 +192,107 @@ const Industries: React.FC = () => {
       {/* Industries Grid */}
       <section className="py-20">
         <div className="container-custom">
-          <div
-  ref={industriesRef}
-  className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
->
-  {filteredIndustries.map((industry, index) => (
-    <Card
-      key={`${industry.title}-${selectedFilter}`}
-      className="group relative overflow-hidden rounded-2xl border border-border bg-card shadow-card hover:shadow-elegant hover:-translate-y-2 transition-all duration-500"
-    >
-      {/* Image header */}
-      <div className="relative h-44 w-full overflow-hidden">
-        <img
-          src={industry.image}
-          alt={industry.title}
-          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/40 to-transparent"></div>
-      </div>
-
-      {/* Title + short description */}
-      <CardHeader className="px-5 pt-4 pb-3">
-        <CardTitle className="text-lg font-heading text-foreground text-center">
-          {industry.title}
-        </CardTitle>
-        <p className="mt-2 text-sm text-muted-foreground font-body line-clamp-2 text-center">
-          {industry.description}
-        </p>
-      </CardHeader>
-
-      {/* Hover Overlay Reveal */}
-      <div className="absolute inset-0 flex flex-col justify-center bg-background/95 backdrop-blur-md opacity-0 group-hover:opacity-100 transition-all duration-500 px-6 py-5">
-        {/* Key Benefits */}
-        <div className="space-y-2">
-          <h4 className="font-semibold text-sm font-heading text-foreground">
-            Key Benefits:
-          </h4>
-          <ul className="space-y-1">
-            {industry.benefits.map((benefit, i) => (
-              <li
-                key={i}
-                className="flex items-start text-sm text-muted-foreground font-body"
+          <div ref={industriesRef} className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {filteredIndustries.map((industry, index) => (
+              <Card
+                key={`${industry.title}-${selectedFilter}`}
+                className="group relative overflow-hidden rounded-xl border border-border bg-card shadow-card hover:shadow-elegant hover:-translate-y-2 transition-all duration-500"
               >
-                <div className="mt-1 mr-2 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-primary shadow-sm" />
-                {benefit}
-              </li>
+                {/* Image */}
+                <div className="relative h-52 w-full overflow-hidden">
+                  <img
+                    src={industry.image}
+                    alt={industry.title}
+                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/40 to-transparent"></div>
+                </div>
+
+                {/* Title + short description */}
+                <CardHeader className="px-5 pt-4 pb-3">
+                  <CardTitle className="text-lg font-heading text-foreground text-center">
+                    {industry.title}
+                  </CardTitle>
+                  <p className="mt-2 text-sm text-muted-foreground font-body line-clamp-2 text-center">
+                    {industry.description}
+                  </p>
+                </CardHeader>
+
+                {/* Hover Overlay */}
+                <div className="absolute inset-0 flex flex-col justify-center bg-background/95 backdrop-blur-md opacity-0 group-hover:opacity-100 transition-all duration-500 px-6 py-5">
+                  <div className="space-y-2">
+                    <h4 className="font-semibold text-sm font-heading text-foreground">
+                      Key Benefits:
+                    </h4>
+                    <ul className="space-y-1">
+                      {industry.benefits.map((benefit, i) => (
+                        <li key={i} className="flex items-start text-sm text-muted-foreground font-body">
+                          <div className="mt-1 mr-2 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-primary shadow-sm" />
+                          {benefit}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div className="mt-4 rounded-lg bg-primary/5 p-3 group-hover:bg-primary/10 transition-colors">
+                    <p className="text-xs font-semibold text-primary font-heading mb-1">
+                      SUCCESS STORY
+                    </p>
+                    <p className="text-sm text-muted-foreground font-body leading-relaxed line-clamp-3">
+                      {industry.caseStudy}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="absolute inset-0 rounded-xl border-2 border-transparent group-hover:border-primary/40 transition-all duration-500 pointer-events-none"></div>
+              </Card>
             ))}
-          </ul>
-        </div>
-
-        {/* Case Study Highlight */}
-        <div className="mt-4 rounded-lg bg-primary/5 p-3 group-hover:bg-primary/10 transition-colors">
-          <p className="text-xs font-semibold text-primary font-heading mb-1">
-            SUCCESS STORY
-          </p>
-          <p className="text-sm text-muted-foreground font-body leading-relaxed line-clamp-3">
-            {industry.caseStudy}
-          </p>
-        </div>
-      </div>
-
-      {/* Animated border glow */}
-      <div className="absolute inset-0 rounded-2xl border-2 border-transparent group-hover:border-primary/40 transition-all duration-500 pointer-events-none"></div>
-    </Card>
-  ))}
-</div>
-
+          </div>
 
           {filteredIndustries.length === 0 && (
             <div className="text-center py-20">
-              <p className="text-muted-foreground font-body text-lg">No industries found for the selected filter.</p>
+              <p className="text-muted-foreground font-body text-lg">
+                No industries found for the selected filter.
+              </p>
             </div>
           )}
 
           {/* CTA Section */}
-          <div className="text-center mt-20 py-16 bg-gradient-subtle rounded-2xl">
-            <div className="max-w-3xl mx-auto space-y-8">
-              <MaskedHeading as="h2" className="text-4xl md:text-5xl font-bold">
+          <section
+            className="relative py-24 md:py-32 text-center px-6 lg:px-20 mt-20 overflow-hidden rounded-xl"
+            style={{
+              backgroundImage: "url('https://res.cloudinary.com/dzhmpluhr/image/upload/v1759257422/luca-bravo-9l_326FISzk-unsplash_jeaidc.jpg')",
+              backgroundAttachment: "fixed",
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+            }}
+          >
+            <div className="absolute inset-0 bg-black/30 z-0" />
+            <div className="relative z-10 max-w-3xl mx-auto p-8 md:p-12 space-y-6 md:space-y-8 rounded-xl">
+              <MaskedHeading as="h2" className="text-3xl md:text-4xl lg:text-5xl font-bold text-white">
                 Your Industry, Our Expertise
               </MaskedHeading>
-              <AnimatedParagraph className="text-lg text-muted-foreground">
+              <AnimatedParagraph className="text-base md:text-lg text-white/90 leading-relaxed">
                 Don't see your industry listed? We've worked with businesses across diverse sectors. 
                 Let's discuss how we can create a tailored solution for your specific needs.
               </AnimatedParagraph>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <div className="flex flex-col sm:flex-row gap-6 justify-center mt-6">
                 <Button 
                   asChild 
                   size="lg" 
-                  className="bg-gradient-primary hover:opacity-90 text-white shadow-elegant hover:shadow-glow transition-all duration-300 group"
+                  className="bg-white text-primary font-semibold px-10 py-4 hover:text-white rounded-xl shadow-elegant hover:opacity-95 transition-all"
                 >
                   <Link to="/contact">
                     Discuss Your Industry
-                    <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                    <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                   </Link>
                 </Button>
-                
+
                 <Button 
                   asChild 
                   variant="outline" 
                   size="lg"
-                  className="border-primary text-primary hover:bg-primary hover:text-primary-foreground"
+                  className="border-white text-black hover:bg-white/10 px-10 py-4 rounded-xl transition-all"
                 >
                   <Link to="/customers">
                     View All Case Studies
@@ -301,7 +300,7 @@ const Industries: React.FC = () => {
                 </Button>
               </div>
             </div>
-          </div>
+          </section>
         </div>
       </section>
     </main>

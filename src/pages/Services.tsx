@@ -1,183 +1,178 @@
-import React, { useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
-import { 
-  Cog, 
-  Users, 
-  Search, 
-  Wrench, 
-  Smartphone, 
-  Link as LinkIcon, 
-  Database, 
-  GraduationCap, 
-  HeadphonesIcon,
-  ArrowRight,
-  CheckCircle,
-  Settings,
-  BarChart3,
-  Zap
-} from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { LineMaskReveal, BlurFadeReveal } from '@/components/animations/ScrollReveal';
-import { staggerCards } from '@/lib/gsap-animations';
+import React, { useRef, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { LineMaskReveal, BlurFadeReveal } from "@/components/animations/ScrollReveal";
+import { staggerCards } from "@/lib/gsap-animations";
 
-const Services: React.FC = () => {
-  const servicesRef = useRef<HTMLDivElement>(null);
+// Component for image fade-in + blur
+const InViewImage: React.FC<{ src: string; alt: string; className?: string }> = ({ src, alt, className }) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const [inView, setInView] = useState(false);
 
   useEffect(() => {
-    if (servicesRef.current) {
-      staggerCards(servicesRef.current);
+    const observer = new IntersectionObserver(
+      ([entry]) => setInView(entry.isIntersecting),
+      { threshold: 0.1 }
+    );
+    if (ref.current) observer.observe(ref.current);
+    return () => {
+      if (ref.current) observer.unobserve(ref.current);
+    };
+  }, []);
+
+  return (
+    <div
+      ref={ref}
+      className={`overflow-hidden rounded-xl transition-all duration-1000 ease-out ${
+        inView ? "opacity-100 blur-0" : "opacity-0 blur-sm"
+      } ${className}`}
+    >
+      <img src={src} alt={alt} className="w-full h-full object-cover rounded-xl shadow-md" />
+    </div>
+  );
+};
+
+const Services: React.FC = () => {
+  const sectionsRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (sectionsRef.current) {
+      staggerCards(sectionsRef.current);
     }
   }, []);
 
   const services = [
     {
-      icon: Cog,
-      title: 'Implementation',
-      description: 'Our end-to-end implementation service is designed to get you up and running with ERPNext efficiently and with minimal disruption.',
-      features: ['Full system setup', 'Data migration', 'User training', 'Go-live support'],
+      title: "ERPNext Implementation",
+      description:
+        "Get up and running with ERPNext efficiently. Full system setup, data migration, and go-live support tailored for your business.",
+      image: "https://res.cloudinary.com/dzhmpluhr/image/upload/v1759257278/erp_xq2xkb.png",
     },
     {
-      icon: Users,
-      title: 'Consulting',
-      description: 'Leverage our deep knowledge of business processes and ERPNext to make informed decisions.',
-      features: ['Business analysis', 'Process optimization', 'Strategic planning', 'Best practices'],
+      title: "Consulting & Assessment",
+      description:
+        "Leverage deep insights on business processes to make informed decisions and optimize operations effectively.",
+      image: "https://res.cloudinary.com/dzhmpluhr/image/upload/v1759257282/scott-graham-5fNmWej4tAA-unsplash_mvoxbs.jpg",
     },
     {
-      icon: Search,
-      title: 'Assessment & Evaluation',
-      description: 'We\'ll provide a detailed evaluation and a clear roadmap, helping you understand how ERPNext can solve your challenges and drive growth.',
-      features: ['Current state analysis', 'Gap assessment', 'ROI calculation', 'Implementation roadmap'],
+      title: "Customization & Integration",
+      description:
+        "Tailor ERPNext to fit your requirements, with custom modules, reports, workflows, and integration with third-party software.",
+      image: "https://res.cloudinary.com/dzhmpluhr/image/upload/v1759257279/team-nocoloco-w9jKH8ZnF7A-unsplash_vw5rud.jpg",
     },
     {
-      icon: Wrench,
-      title: 'Customization',
-      description: 'We specialize in tailoring ERPNext to fit your specific requirements, building custom modules, reports, and features.',
-      features: ['Custom modules', 'Report development', 'Workflow automation', 'UI/UX customization'],
-    },
-    {
-      icon: Smartphone,
-      title: 'App and Website Development',
-      description: 'We also offer app and website development services to provide a comprehensive digital solution for your business.',
-      features: ['Mobile apps', 'Web portals', 'E-commerce integration', 'API development'],
-    },
-    {
-      icon: LinkIcon,
-      title: 'Integration',
-      description: 'We can seamlessly integrate ERPNext with third-party software like e-commerce platforms, payment gateways, and shipping APIs.',
-      features: ['Third-party APIs', 'E-commerce platforms', 'Payment gateways', 'Legacy systems'],
-    },
-    {
-      icon: Database,
-      title: 'Migration',
-      description: 'We provide a secure and reliable data migration service to safely transfer your information from legacy systems to ERPNext.',
-      features: ['Data mapping', 'Secure transfer', 'Validation testing', 'Rollback planning'],
-    },
-    {
-      icon: GraduationCap,
-      title: 'Training',
-      description: 'We offer customized training sessions and comprehensive documentation for all user levels.',
-      features: ['User training', 'Admin training', 'Custom documentation', 'Video tutorials'],
-    },
-    {
-      icon: HeadphonesIcon,
-      title: 'Support',
-      description: 'Our flexible support packages provide ongoing technical assistance and maintenance.',
-      features: ['24/7 support', 'System maintenance', 'Bug fixes', 'Performance optimization'],
+      title: "Support & Training",
+      description:
+        "Continuous support and training for your teams to maximize adoption and system efficiency across your organization.",
+      image: "https://res.cloudinary.com/dzhmpluhr/image/upload/v1759257282/campaign-creators-gMsnXqILjp4-unsplash_mlv1tx.jpg",
     },
   ];
 
   return (
     <main className="pt-20">
       {/* Hero Section */}
-      <section className="py-16 md:py-20 bg-gradient-subtle">
-        <div className="container-custom text-center px-4">
-          <div className="max-w-4xl mx-auto space-y-6 md:space-y-8">
-            <LineMaskReveal className="text-4xl md:text-5xl lg:text-6xl font-bold">
-              <h1>Our Services</h1>
-            </LineMaskReveal>
-            <BlurFadeReveal className="text-base md:text-lg lg:text-xl text-muted-foreground">
-              <p>At Clariox Technologies, we specialize in delivering comprehensive ERPNext solutions that streamline your operations, reduce costs, and accelerate growth. Our full-cycle approach ensures your business thrives.</p>
-            </BlurFadeReveal>
-          </div>
+      <section
+        className="relative h-[80vh] bg-cover bg-center flex items-center justify-center px-6 lg:px-20"
+        style={{
+          backgroundImage:
+            "url('https://res.cloudinary.com/dzhmpluhr/image/upload/v1759254802/kevin-matos-Nl_FMFpXo2g-unsplash_um7tgy.jpg')",
+        }}
+      >
+        <div className="p-8 md:p-12 text-center max-w-3xl space-y-6">
+          <LineMaskReveal className="text-4xl md:text-5xl lg:text-6xl font-bold text-white">
+            <h1>Our Services</h1>
+          </LineMaskReveal>
+          <BlurFadeReveal className="text-lg md:text-xl text-white/90 leading-relaxed">
+            <p>
+              We provide end-to-end ERPNext solutions designed to streamline operations, reduce costs,
+              and accelerate business growth. Explore our core services below.
+            </p>
+          </BlurFadeReveal>
         </div>
       </section>
 
-      {/* Services Grid */}
-      <section className="py-16 md:py-20">
-        <div className="container-custom px-4">
-          <div ref={servicesRef} className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 md:gap-8">
-            {services.map((service, index) => (
-              <Card 
-                key={index} 
-                className="card-item group hover:shadow-elegant hover:-translate-y-2 transition-all duration-300 border-0 shadow-card h-full"
-              >
-                <CardHeader className="text-center pb-4">
-                  <div className="flex justify-center mb-4">
-                    <div className="p-3 md:p-4 bg-primary/10 rounded-full group-hover:bg-primary/20 transition-colors">
-                      <service.icon className="h-6 w-6 md:h-8 md:w-8 text-primary" />
-                    </div>
-                  </div>
-                  <CardTitle className="text-lg md:text-xl font-heading">{service.title}</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4 md:space-y-6">
-                  <p className="text-sm md:text-base text-muted-foreground font-body leading-relaxed">
-                    {service.description}
-                  </p>
-                  <div className="space-y-2">
-                    <h4 className="font-semibold text-xs md:text-sm font-heading">Key Features:</h4>
-                    <ul className="space-y-1">
-                      {service.features.map((feature, featureIndex) => (
-                        <li key={featureIndex} className="text-xs md:text-sm text-muted-foreground font-body flex items-center">
-                          <CheckCircle className="h-3 w-3 md:h-4 md:w-4 text-primary mr-2 md:mr-3 flex-shrink-0" />
-                          {feature}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+      {/* Services Sections */}
+      <section ref={sectionsRef} className="space-y-32 lg:space-y-40 px-6 lg:px-20 mt-16">
+        {services.map((service, index) => (
+          <div
+            key={index}
+            className={`flex flex-col md:flex-row items-stretch gap-8 lg:gap-16`}
+          >
+            {/* Image with fade+blur */}
+            <InViewImage
+              src={service.image}
+              alt={service.title}
+              className={index % 2 !== 0 ? "md:order-2" : ""}
+            />
 
-          {/* CTA Section */}
-          <div className="text-center mt-16 md:mt-20 py-12 md:py-16 bg-gradient-subtle rounded-2xl">
-            <div className="max-w-3xl mx-auto space-y-6 md:space-y-8 px-4">
-              <LineMaskReveal className="text-3xl md:text-4xl lg:text-5xl font-bold">
-                <h2>Ready to Get Started?</h2>
+            {/* Text with scroll animation */}
+            <div className={`md:w-1/2 flex flex-col justify-center p-8 md:p-12 bg-white rounded-xl shadow-md min-w-[50vw]`}>
+              <LineMaskReveal className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight">
+                <h2>{service.title}</h2>
               </LineMaskReveal>
-              <BlurFadeReveal className="text-base md:text-lg text-muted-foreground">
-                <p>Let's discuss how our services can transform your business operations. Schedule a free consultation with our experts today.</p>
+              <BlurFadeReveal className="text-base md:text-lg text-muted-foreground leading-relaxed mt-4">
+                <p>{service.description}</p>
               </BlurFadeReveal>
-              <BlurFadeReveal delay={200}>
-                <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                  <Button 
-                    asChild 
-                    size="lg" 
-                    className="w-full sm:w-auto bg-gradient-primary hover:opacity-90 text-white shadow-elegant hover:shadow-glow transition-all duration-300 group text-base md:text-lg px-6 md:px-8 py-3 md:py-4"
-                  >
-                    <Link to="/contact">
-                      Book Free Consultation
-                      <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                    </Link>
-                  </Button>
-                  
-                  <Button 
-                    asChild 
-                    variant="outline" 
-                    size="lg"
-                    className="w-full sm:w-auto border-primary text-primary hover:bg-primary hover:text-primary-foreground text-base md:text-lg px-6 md:px-8 py-3 md:py-4"
-                  >
-                    <Link to="/customers">
-                      View Case Studies
-                    </Link>
-                  </Button>
-                </div>
-              </BlurFadeReveal>
+              {/* <BlurFadeReveal delay={200}>
+                <Button
+                  asChild
+                  size="lg"
+                  className="bg-gradient-to-r from-primary to-violet-800 text-white font-semibold px-10 py-4 rounded-xl shadow-elegant hover:opacity-95 transition-all mt-6"
+                >
+                  <Link to="/contact">Get Consultation</Link>
+                </Button>
+              </BlurFadeReveal> */}
             </div>
           </div>
-        </div>
+        ))}
       </section>
+
+      {/* CTA Section */}
+    <section
+  className="relative py-24 md:py-32 text-center px-6 lg:px-20  mt-20 overflow-hidden"
+  style={{
+    backgroundImage:
+      "url('https://res.cloudinary.com/dzhmpluhr/image/upload/v1759257422/luca-bravo-9l_326FISzk-unsplash_jeaidc.jpg')",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    backgroundAttachment: "fixed", // parallax effect
+  }}
+>
+  <div className="relative z-10 max-w-3xl mx-auto space-y-6 md:space-y-8 p-8 md:p-12 rounded-xl">
+    <LineMaskReveal className="text-3xl md:text-4xl lg:text-5xl font-bold text-white">
+      <h2>Ready to Transform Your Business?</h2>
+    </LineMaskReveal>
+    <BlurFadeReveal className="text-base md:text-lg text-white/90 leading-relaxed">
+      <p>
+        Join hundreds of successful businesses that have streamlined operations with our ERPNext solutions. 
+        Get started with a free consultation today.
+      </p>
+    </BlurFadeReveal>
+    <BlurFadeReveal delay={200}>
+      <div className="flex flex-col sm:flex-row gap-6 justify-center mt-6">
+        <Button
+          asChild
+          size="lg"
+          className="bg-white text-primary font-semibold px-10 py-4 hover:text-white rounded-xl shadow-elegant hover:opacity-95 transition-all"
+        >
+          <Link to="/contact">Get Free Consultation</Link>
+        </Button>
+        <Button
+          asChild
+          variant="outline"
+          size="lg"
+          className="border-white text-black hover:bg-white/10 px-10 py-4 rounded-xl transition-all"
+        >
+          <Link to="/customers">View Case Studies</Link>
+        </Button>
+      </div>
+    </BlurFadeReveal>
+  </div>
+
+  {/* Optional overlay for better readability */}
+  <div className="absolute inset-0 bg-black/30 z-0"></div>
+</section>
+
     </main>
   );
 };

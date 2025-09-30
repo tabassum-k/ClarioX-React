@@ -100,60 +100,81 @@ const Customers: React.FC = () => {
   return (
     <main className="pt-20">
       {/* Hero Section */}
-      <section className="py-20 bg-gradient-subtle">
-        <div className="container-custom text-center">
-          <div className="max-w-4xl mx-auto space-y-8">
-            <MaskedHeading as="h1" className="text-5xl md:text-6xl font-bold">
-              Our Customers
-            </MaskedHeading>
-            <AnimatedParagraph className="text-xl text-muted-foreground">
-              We are proud to have partnered with leading businesses to deliver transformative 
-              ERPNext solutions. Discover how we've helped organizations streamline operations, 
-              reduce costs, and accelerate growth.
-            </AnimatedParagraph>
-          </div>
-        </div>
-      </section>
+<section
+  className="relative w-full flex items-center justify-center"
+  style={{
+    height: '90vh',
+    backgroundImage: "url('https://res.cloudinary.com/dzhmpluhr/image/upload/v1759259063/sigmund-eTgMFFzroGc-unsplash_kb8e3p.jpg')",
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
+  }}
+>
+  {/* Gradient overlay */}
+  <div className="absolute inset-0 bg-black/40"></div>
+
+  <div className="relative z-10 container-custom text-center px-6">
+    <div className="max-w-4xl mx-auto space-y-6 md:space-y-8">
+      <MaskedHeading as="h1" className="text-5xl md:text-6xl font-bold text-white">
+        Our Customers
+      </MaskedHeading>
+      <AnimatedParagraph className="text-xl text-white/90">
+        We are proud to have partnered with leading businesses to deliver transformative 
+        ERPNext solutions. Discover how we've helped organizations streamline operations, 
+        reduce costs, and accelerate growth.
+      </AnimatedParagraph>
+    </div>
+  </div>
+</section>
+
 
       {/* Testimonials Section */}
       <section className="py-20">
         <div className="container-custom">
-          <div className="text-center space-y-6 mb-16">
-            <MaskedHeading as="h2" className="text-4xl md:text-5xl font-bold">
+          <div className="text-center space-y-2 mb-16">
+            <MaskedHeading as="h2" className="text-5xl md:text-6xl font-extralight">
               What Our Clients Say
             </MaskedHeading>
-            <AnimatedParagraph className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            <AnimatedParagraph className="text-lg text-muted-foreground max-w-2xl mx-auto font-light">
               Don't just take our word for it. Here's what our clients have to say about 
               working with Clariox Technologies.
             </AnimatedParagraph>
           </div>
 
-          <div ref={testimonialsRef} className="grid md:grid-cols-2 gap-8">
-            {testimonials.map((testimonial, index) => (
-              <Card 
-                key={index} 
-                className="card-item hover:shadow-elegant hover:-translate-y-2 transition-all duration-300 border-0 shadow-card"
-              >
-                <CardHeader className="space-y-4">
-                  <div className="flex items-center space-x-1">
-                    {[...Array(testimonial.rating)].map((_, i) => (
-                      <Star key={i} className="h-5 w-5 fill-yellow-400 text-yellow-400" />
-                    ))}
-                  </div>
-                  <div className="space-y-1">
-                    <h4 className="font-semibold font-heading text-lg">{testimonial.name}</h4>
-                    <p className="text-sm text-muted-foreground font-body">{testimonial.position}</p>
-                    <p className="text-xs text-primary font-body font-medium">{testimonial.industry}</p>
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <blockquote className="text-muted-foreground font-body leading-relaxed italic">
-                    "{testimonial.content}"
-                  </blockquote>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+       <div 
+  ref={testimonialsRef} 
+  className="grid md:grid-cols-2 gap-8 px-4 md:px-8"
+>
+  {testimonials.slice(0, 3).map((testimonial, index) => (
+    <Card 
+      key={index} 
+      className="group relative flex overflow-hidden rounded-2xl border-0 shadow-md hover:shadow-lg transition-transform duration-400 hover:-translate-y-1 bg-white"
+    >
+      {/* Left gradient strip (5%) */}
+      <div className="w-[5%] bg-gradient-to-b from-violet-500 to-blue-500"></div>
+
+      {/* Content area */}
+      <div className="flex-1 p-4 md:p-6">
+
+        {/* Client info */}
+        <div className="mb-2">
+          <h4 className="text-md md:text-lg font-light font-heading text-gray-900">{testimonial.name}</h4>
+          <p className="text-xs md:text-sm text-gray-600 font-body">{testimonial.position}</p>
+          <p className="text-xs text-gray-400 font-body">{testimonial.industry}</p>
+        </div>
+
+        {/* Testimonial text */}
+        <blockquote className="text-gray-800 font-light leading-relaxed italic text-sm md:text-base line-clamp-4">
+          "{testimonial.content}"
+        </blockquote>
+      </div>
+
+      {/* Optional subtle hover overlay */}
+      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-all duration-300 rounded-2xl pointer-events-none"></div>
+    </Card>
+  ))}
+</div>
+
         </div>
       </section>
 
@@ -161,10 +182,10 @@ const Customers: React.FC = () => {
       <section className="py-20 bg-gradient-subtle">
         <div className="container-custom">
           <div className="text-center space-y-6 mb-16">
-            <MaskedHeading as="h2" className="text-4xl md:text-5xl font-bold">
+            <MaskedHeading as="h2" className="text-5xl md:text-6xl font-extralight">
               Success Stories
             </MaskedHeading>
-            <AnimatedParagraph className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            <AnimatedParagraph className="text-lg text-muted-foreground max-w-2xl mx-auto font-light">
               Detailed case studies showcasing how we've helped businesses transform 
               their operations and achieve measurable results.
             </AnimatedParagraph>
@@ -180,9 +201,6 @@ const Customers: React.FC = () => {
                   <div className="grid lg:grid-cols-2 gap-8 items-start">
                     <div className="space-y-6">
                       <div className="flex items-center space-x-4">
-                        <div className="p-3 bg-primary/10 rounded-full">
-                          <study.icon className="h-6 w-6 text-primary" />
-                        </div>
                         <div>
                           <h3 className="text-2xl font-bold font-heading">{study.client}</h3>
                           <p className="text-primary font-body font-medium">{study.industry}</p>

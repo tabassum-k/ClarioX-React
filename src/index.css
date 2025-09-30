@@ -45,7 +45,7 @@ All colors MUST be HSL.
     --radius: 0.75rem;
 
     /* Custom Design Tokens */
-    --container-max: 1200px;
+    --container-max: 100%;
     --page-padding: 4rem;
     
     /* Fonts */
