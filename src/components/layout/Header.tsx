@@ -41,10 +41,10 @@ const Header: React.FC = () => {
             <img 
               src={clariozLogo} 
               alt="Clariox Technologies" 
-              className="h-10 w-auto transition-transform group-hover:scale-105"
+              className="h-20 w-auto transition-transform group-hover:scale-105"
             />
             <div className="hidden sm:block">
-              <span className="font-heading font-bold text-xl text-foreground">
+              <span className="font-heading font-bold text-2xl text-white">
                 Clariox
               </span>
               <span className="font-heading font-normal text-lg text-muted-foreground ml-1">
@@ -54,55 +54,58 @@ const Header: React.FC = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            {navigation.map((item) => (
-              <Link
-                key={item.name}
-                to={item.href}
-                className={cn(
-                  "relative font-body font-medium transition-colors hover:text-primary",
-                  location.pathname === item.href
-                    ? "text-primary"
-                    : "text-foreground"
-                )}
-              >
-                {item.name}
-                {location.pathname === item.href && (
-                  <div className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary rounded-full" />
-                )}
-              </Link>
-            ))}
-          </div>
+     <div className="hidden md:flex items-center space-x-8">
+  {navigation.map((item) => (
+    <Link
+      key={item.name}
+      to={item.href}
+      className={cn(
+        "relative font-body font-medium hover:text-primary transition-colors duration-200",
+        location.pathname === item.href
+          ? "text-primary"
+          : "text-white"
+      )}
+    >
+      {item.name}
+      {location.pathname === item.href && (
+        <div className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary rounded-full" />
+      )}
+    </Link>
+  ))}
+</div>
+
 
           {/* Theme Toggle & Mobile Menu */}
-          <div className="flex items-center space-x-4">
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={toggleTheme}
-              className="w-9 h-9 rounded-full"
-            >
-              {theme === 'light' ? (
-                <Moon className="h-4 w-4" />
-              ) : (
-                <Sun className="h-4 w-4" />
-              )}
-            </Button>
+            <div className="flex items-center space-x-4">
+              {/* Theme Toggle Button */}
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={toggleTheme}
+                className="w-9 h-9 rounded-full text-white hover:text-primary transition-colors duration-200"
+              >
+                {theme === 'light' ? (
+                  <Moon className="h-4 w-4 text-white" />
+                ) : (
+                  <Sun className="h-4 w-4 text-white" />
+                )}
+              </Button>
 
-            {/* Mobile Menu Button */}
-            <Button
-              variant="ghost"
-              size="sm"
-              className="md:hidden w-9 h-9 rounded-full"
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            >
-              {isMobileMenuOpen ? (
-                <X className="h-4 w-4" />
-              ) : (
-                <Menu className="h-4 w-4" />
-              )}
-            </Button>
-          </div>
+              {/* Mobile Menu Button */}
+              <Button
+                variant="ghost"
+                size="sm"
+                className="md:hidden w-9 h-9 rounded-full text-white hover:text-primary transition-colors duration-200"
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              >
+                {isMobileMenuOpen ? (
+                  <X className="h-4 w-4 text-white" />
+                ) : (
+                  <Menu className="h-4 w-4 text-white" />
+                )}
+              </Button>
+            </div>
+
         </div>
 
         {/* Mobile Navigation */}

@@ -47,80 +47,80 @@ const Home: React.FC = () => {
   return (
     <main>
       {/* Hero Section */}
- <section className="relative min-h-[100vh] flex items-center justify-center px-0 overflow-hidden pb-[10%]">
-  {/* Background Video */}
-  <video
-    className="absolute inset-0 w-full h-full object-cover"
-    autoPlay
-    loop
-    muted
-    playsInline
-  >
-    <source src="https://res.cloudinary.com/dzhmpluhr/video/upload/v1759253966/22908-331768732_small_chvjla.mp4" type="video/mp4" />
-  </video>
+    <section className="relative min-h-[100vh] flex items-center justify-center px-0 overflow-hidden pb-[10%]">
+      {/* Background Video */}
+      <video
+        className="absolute inset-0 w-full h-full object-cover"
+        autoPlay
+        loop
+        muted
+        playsInline
+      >
+        <source src="https://res.cloudinary.com/dzhmpluhr/video/upload/v1759253966/22908-331768732_small_chvjla.mp4" type="video/mp4" />
+      </video>
 
-  {/* Overlay for readability */}
-  <div className="absolute inset-0 bg-black/40" />
+      {/* Overlay for readability */}
+      <div className="absolute inset-0 bg-black/40" />
 
-  {/* Content */}
-  <div className="relative z-10 w-full max-w-full text-center space-y-8 pb-20 px-4">
-    
-    {/* Heading */}
-    <LineMaskReveal className="text-4xl md:text-6xl lg:text-7xl font-bold gradient-text drop-shadow-lg">
-      <h1>
-        Clariox Technology: Innovating Your Business with Cutting-Edge ERPNext Solutions
-      </h1>
-    </LineMaskReveal>
-
-    {/* Subheading */}
-    <LineMaskReveal
-      delay={200}
-      className="text-lg md:text-xl lg:text-2xl text-muted-foreground font-light drop-shadow"
-    >
-      <h2>
-        Simplify your business, amplify your growth.
-      </h2>
-    </LineMaskReveal>
-
-    {/* Description */}
-    <BlurFadeReveal
-      delay={400}
-      className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto drop-shadow"
-    >
-      <p>
-        At Clariox Technologies, we specialize in delivering comprehensive ERPNext
-        solutions that streamline your operations, reduce costs, and accelerate
-        growth. Our full-cycle approach ensures your business thrives.
-      </p>
-    </BlurFadeReveal>
-
-    {/* Buttons */}
-    <BlurFadeReveal delay={600}>
-      <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4 md:pt-8">
+      {/* Content */}
+      <div className="relative z-10 w-full max-w-full text-center space-y-8 pb-20 px-4">
         
-        <Button
-          asChild
-          size="lg"
-          className="w-full sm:w-auto bg-gradient-primary hover:opacity-90 text-white shadow-elegant hover:shadow-glow transition-all duration-300 group text-base md:text-lg px-6 md:px-8 py-3 md:py-4"
-        >
-          <Link to="/contact">
-            Book a Call
-            <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-          </Link>
-        </Button>
+        {/* Heading */}
+        <LineMaskReveal className="text-4xl md:text-6xl lg:text-7xl font-bold gradient-text drop-shadow-lg">
+          <h1>
+            Clariox Technology: Innovating Your Business with Cutting-Edge ERPNext Solutions
+          </h1>
+        </LineMaskReveal>
 
-        <Button
-          asChild
-          variant="outline"
-          size="lg"
-          className="w-full sm:w-auto border-primary text-primary hover:bg-primary hover:text-primary-foreground text-base md:text-lg px-6 md:px-8 py-3 md:py-4"
+        {/* Subheading */}
+        <LineMaskReveal
+          delay={200}
+          className="text-lg md:text-xl lg:text-2xl text-white font-light drop-shadow"
         >
-          <Link to="/services">Explore Services</Link>
-        </Button>
+          <h1>
+            Simplify Your Business<br /> Amplify Your Growth
+          </h1>
+        </LineMaskReveal>
+
+        {/* Description */}
+        <BlurFadeReveal
+          delay={400}
+          className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto drop-shadow"
+        >
+          <p>
+            At Clariox Technologies, we specialize in delivering comprehensive ERPNext
+            solutions that streamline your operations, reduce costs, and accelerate
+            growth. Our full-cycle approach ensures your business thrives.
+          </p>
+        </BlurFadeReveal>
+
+        {/* Buttons */}
+        <BlurFadeReveal delay={600}>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4 md:pt-8">
+            
+            <Button
+              asChild
+              size="lg"
+              className="w-full sm:w-auto bg-gradient-primary hover:opacity-90 text-white shadow-elegant hover:shadow-glow transition-all duration-300 group text-base md:text-lg px-6 md:px-8 py-3 md:py-4"
+            >
+              <Link to="/contact">
+                Book a Call
+                <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+              </Link>
+            </Button>
+
+            <Button
+              asChild
+              variant="outline"
+              size="lg"
+              className="w-full sm:w-auto border-primary text-primary hover:bg-primary hover:text-primary-foreground text-base md:text-lg px-6 md:px-8 py-3 md:py-4"
+            >
+              <Link to="/services">Explore Services</Link>
+            </Button>
+          </div>
+        </BlurFadeReveal>
       </div>
-    </BlurFadeReveal>
-  </div>
-</section>
+    </section>
 
       {/* Stats Section */}
 <section className="py-20 md:py-28 bg-background">
