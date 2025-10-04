@@ -33,7 +33,7 @@ const Footer: React.FC = () => {
             </p>
             <div className="flex space-x-3">
               <a 
-                href="#" 
+                href="https://www.linkedin.com/in/clariox-technologies-4a4b00385" 
                 className="p-2 bg-muted hover:bg-primary hover:text-primary-foreground rounded-full transition-colors"
               >
                 <Linkedin className="h-4 w-4" />
