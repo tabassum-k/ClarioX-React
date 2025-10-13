@@ -96,19 +96,25 @@ const Home: React.FC = () => {
 
         {/* Buttons */}
         <BlurFadeReveal delay={600}>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4 md:pt-8">
-            
-            <Button
-              asChild
-              size="lg"
-              className="w-full sm:w-auto bg-gradient-primary hover:opacity-90 text-white shadow-elegant hover:shadow-glow transition-all duration-300 group text-base md:text-lg px-6 md:px-8 py-3 md:py-4"
-            >
-              <Link to="/contact">
-                Book a Call
-                <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-              </Link>
-            </Button>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4 md:pt-8">       
+        <Button
+          size="lg"
+          onClick={() => {
+            const userEmail = prompt("Please enter your email:");
+            if (!userEmail) return;
 
+            const subject = encodeURIComponent(`Business Enquiry from ${userEmail}`);
+            const body = encodeURIComponent(
+              `Hello Clariox Team,\n\nI am interested in learning more about your ERPNext solutions.\n\nBest regards,\n${userEmail}`
+            );
+
+            window.location.href = `mailto:info@clariox.in?subject=${subject}&body=${body}`;
+          }}
+          className="w-full sm:w-auto bg-gradient-primary hover:opacity-90 text-white shadow-elegant hover:shadow-glow transition-all duration-300 group text-base md:text-lg px-6 md:px-8 py-3 md:py-4"
+        >
+          Send Enquiry
+          <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+        </Button>
             <Button
               asChild
               variant="outline"
@@ -121,6 +127,7 @@ const Home: React.FC = () => {
         </BlurFadeReveal>
       </div>
     </section>
+
 
       {/* Stats Section */}
 <section className="py-20 md:py-28 bg-background">
@@ -151,6 +158,32 @@ const Home: React.FC = () => {
   </div>
 </section>
 
+
+{/* MAAISA Group Affiliation Section */}
+<section className="py-12 md:py-16 bg-muted/20 border-b border-border">
+  <div className="max-w-6xl mx-auto px-6 lg:px-12 flex flex-col md:flex-row items-center justify-center gap-8 text-center md:text-left">
+    
+    {/* Logo */}
+    <div className="flex-shrink-0">
+      <img
+        src="https://res.cloudinary.com/de6u5kbiw/image/upload/c_crop,w_300,h_100/v1760360999/clariox/WhatsApp_Image_2025-10-13_at_6.33.54_PM-removebg-preview_n4lx0h_c_crop_ar_1_1_xvp3fq.png"
+        alt="MAAISA Group Logo"
+        className="h-[5rem] md:h-[5rem] object-contain mx-auto md:mx-0"
+      />
+    </div>
+
+    {/* Text */}
+    <div className="space-y-3 max-w-2xl">
+      <h3 className="text-xl md:text-2xl font-semibold text-foreground">
+        Proud Member of the <span className="text-primary">MAAISA Group</span>
+      </h3>
+      <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
+        Clariox Technologies operates as a <span className="font-medium text-foreground">sister company</span> under the MAAISA Group — a trusted ecosystem of innovative brands 
+        driving excellence across technology, digital transformation, and enterprise solutions.
+      </p>
+    </div>
+  </div>
+</section>
 
 
       {/* Featured Services */}
@@ -232,14 +265,16 @@ const Home: React.FC = () => {
           <Link to="/contact">Get Free Consultation</Link>
         </Button>
 
-        <Button
-          asChild
-          variant="outline"
-          size="lg"
-          className="border-white text-black hover:bg-white/10 px-10 py-4 rounded-xl transition-all"
-        >
-          <Link to="/customers">View Success Stories</Link>
-        </Button>
+<Button
+  asChild
+  variant="outline"
+  size="lg"
+  className="border-black text-black hover:bg-black/10 dark:border-white dark:text-white dark:hover:bg-white/10 px-10 py-4 rounded-xl transition-all"
+>
+  <Link to="/customers">View Success Stories</Link>
+</Button>
+
+
       </div>
     </BlurFadeReveal>
   </div>
