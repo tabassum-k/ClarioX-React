@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect} from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -13,6 +13,9 @@ import {
 } from "lucide-react";
 
 const About: React.FC = () => {
+  useEffect(() => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}, []);
   return (
     <main className="pt-20 font-[Inter] text-gray-800">
       {/* ===== HERO SECTION ===== */}

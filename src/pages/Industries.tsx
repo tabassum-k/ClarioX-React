@@ -136,6 +136,10 @@ const Industries: React.FC = () => {
     ? industries 
     : industries.filter(industry => industry.category === selectedFilter);
 
+    useEffect(() => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}, []);
+
   return (
     <main className="pt-20">
       {/* Hero Section */}

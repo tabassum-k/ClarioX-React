@@ -126,6 +126,9 @@ const fadeUp = {
    Component
    ------------------------- */
 const Customers: React.FC = () => {
+  useEffect(() => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}, []);
   const testimonialsRef = useRef<HTMLDivElement | null>(null);
   const caseStudiesRef = useRef<HTMLDivElement | null>(null);
   const [index, setIndex] = useState(0);

@@ -34,7 +34,9 @@ const InViewImage: React.FC<{ src: string; alt: string; className?: string }> = 
 
 const Services: React.FC = () => {
   const sectionsRef = useRef<HTMLDivElement>(null);
-
+useEffect(() => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}, []);
   useEffect(() => {
     if (sectionsRef.current) {
       staggerCards(sectionsRef.current);

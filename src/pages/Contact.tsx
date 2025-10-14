@@ -26,6 +26,7 @@ const tileC =
 const studioImage =
   "https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=1600&q=80"; // creative studio
 
+
 const container = {
   hidden: { opacity: 0, y: 12 },
   show: {
@@ -40,6 +41,10 @@ const item = {
 };
 
 const Contact: React.FC = () => {
+  useEffect(() => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}, []);
+
   const { toast } = useToast();
   const [form, setForm] = useState({
     name: "",

@@ -7,6 +7,9 @@ import { LineMaskReveal, BlurFadeReveal } from '@/components/animations/ScrollRe
 import { staggerCards } from '@/lib/gsap-animations';
 
 const Home: React.FC = () => {
+  useEffect(() => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}, []);
   const servicesRef = useRef<HTMLDivElement>(null);
   const statsRef = useRef<HTMLDivElement>(null);
 const [isModalOpen, setIsModalOpen] = useState(false);
