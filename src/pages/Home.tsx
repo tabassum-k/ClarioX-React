@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, CheckCircle, Users, Award, Globe, Clock, Building } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -9,7 +9,28 @@ import { staggerCards } from '@/lib/gsap-animations';
 const Home: React.FC = () => {
   const servicesRef = useRef<HTMLDivElement>(null);
   const statsRef = useRef<HTMLDivElement>(null);
+const [isModalOpen, setIsModalOpen] = useState(false);
+  const [email, setEmail] = useState('');
+  const [acceptedTnC, setAcceptedTnC] = useState(false);
 
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setEmail('');
+    setAcceptedTnC(false);
+  };
+
+  const handleSendEmail = () => {
+    if (!email || !acceptedTnC) return;
+
+    const subject = encodeURIComponent(`Business Enquiry from ${email}`);
+    const body = encodeURIComponent(
+      `Hello Clariox Team,\n\nI am interested in learning more about your ERPNext solutions.\n\nBest regards,\n${email}`
+    );
+
+    window.location.href = `mailto:info@clariox.in?subject=${subject}&body=${body}`;
+    closeModal();
+  };
   useEffect(() => {
     if (servicesRef.current) {
       staggerCards(servicesRef.current);
@@ -46,6 +67,57 @@ const Home: React.FC = () => {
 
   return (
     <main>
+      {isModalOpen && (
+  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+    <div className="bg-white dark:bg-gray-900 rounded-xl max-w-md w-full p-8 relative shadow-xl">
+      {/* Close Button */}
+      <button
+        onClick={closeModal}
+        className="absolute top-4 right-4 text-gray-500 hover:text-gray-900 dark:hover:text-white transition"
+      >
+        ✕
+      </button>
+
+      <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Send Enquiry</h2>
+      <p className="text-sm mb-6 text-gray-600 dark:text-gray-300">
+        Please provide your email and accept our Terms & Conditions to proceed.
+      </p>
+
+      <div className="space-y-4">
+        <input
+          type="email"
+          placeholder="Your Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-800 dark:border-gray-700 dark:text-white"
+        />
+
+        <label className="flex items-center space-x-2 text-gray-700 dark:text-gray-300">
+          <input
+            type="checkbox"
+            checked={acceptedTnC}
+            onChange={(e) => setAcceptedTnC(e.target.checked)}
+            className="w-4 h-4 accent-primary"
+          />
+          <span>I accept the <Link to="/" className="text-primary underline">Terms & Conditions</Link></span>
+        </label>
+
+        <Button
+          size="lg"
+          onClick={handleSendEmail}
+          disabled={!email || !acceptedTnC}
+          className={`
+            w-full bg-gradient-primary text-white rounded-xl py-3 px-6 transition-all duration-300
+            ${!email || !acceptedTnC ? 'opacity-50 cursor-not-allowed' : 'hover:opacity-90'}
+          `}
+        >
+          Send Email
+        </Button>
+      </div>
+    </div>
+  </div>
+)}
+
       {/* Hero Section */}
     <section className="relative min-h-[100vh] flex items-center justify-center px-0 overflow-hidden pb-[10%]">
       {/* Background Video */}
@@ -97,24 +169,15 @@ const Home: React.FC = () => {
         {/* Buttons */}
         <BlurFadeReveal delay={600}>
           <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4 md:pt-8">       
-        <Button
-          size="lg"
-          onClick={() => {
-            const userEmail = prompt("Please enter your email:");
-            if (!userEmail) return;
+          <Button
+            size="lg"
+            onClick={openModal}
+            className="w-full sm:w-auto bg-gradient-primary hover:opacity-90 text-white shadow-elegant hover:shadow-glow transition-all duration-300 group text-base md:text-lg px-6 md:px-8 py-3 md:py-4"
+          >
+            Send Enquiry
+            <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+          </Button>
 
-            const subject = encodeURIComponent(`Business Enquiry from ${userEmail}`);
-            const body = encodeURIComponent(
-              `Hello Clariox Team,\n\nI am interested in learning more about your ERPNext solutions.\n\nBest regards,\n${userEmail}`
-            );
-
-            window.location.href = `mailto:info@clariox.in?subject=${subject}&body=${body}`;
-          }}
-          className="w-full sm:w-auto bg-gradient-primary hover:opacity-90 text-white shadow-elegant hover:shadow-glow transition-all duration-300 group text-base md:text-lg px-6 md:px-8 py-3 md:py-4"
-        >
-          Send Enquiry
-          <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-        </Button>
             <Button
               asChild
               variant="outline"

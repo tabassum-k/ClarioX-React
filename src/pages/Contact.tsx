@@ -1,312 +1,365 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { Mail, Phone, MapPin, Clock, Send, CheckCircle } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Label } from '@/components/ui/label';
-import MaskedHeading from '@/components/animations/MaskedHeading';
-import AnimatedParagraph from '@/components/animations/AnimatedParagraph';
-import { staggerCards } from '@/lib/gsap-animations';
-import { useToast } from '@/hooks/use-toast';
+import React, { useState, useRef, useEffect } from "react";
+import { motion } from "framer-motion";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
+import { useToast } from "@/hooks/use-toast";
+
+/**
+ * Creative Modern-Art Contact Page
+ * - no icons, image-driven
+ * - glassmorphism, animated gradients, framer-motion
+ * - uses your Button and useToast
+ *
+ * Swap the Unsplash image URLs for brand shots if desired.
+ */
+
+const heroImage =
+  "https://images.unsplash.com/photo-1625296278775-c0ccc86b9338?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=2070"; // abstract creative light
+const tileA =
+  "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=80"; // desk/dev
+const tileB =
+  "https://images.unsplash.com/photo-1557200134-90327ee9fafa?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=2070"; // sketching
+const tileC =
+  "https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?auto=format&fit=crop&w=1200&q=80"; // light reflections
+const studioImage =
+  "https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=1600&q=80"; // creative studio
+
+const container = {
+  hidden: { opacity: 0, y: 12 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { staggerChildren: 0.08, ease: "easeOut", duration: 0.5 },
+  },
+};
+const item = {
+  hidden: { opacity: 0, y: 8 },
+  show: { opacity: 1, y: 0, transition: { ease: "easeOut", duration: 0.45 } },
+};
 
 const Contact: React.FC = () => {
-  const cardsRef = useRef<HTMLDivElement>(null);
-  const mapRef = useRef<HTMLIFrameElement>(null);
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    company: '',
-    message: ''
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    company: "",
+    message: "",
+  });
+  const [loading, setLoading] = useState(false);
+  const formRef = useRef<HTMLFormElement | null>(null);
 
   useEffect(() => {
-    if (cardsRef.current) {
-      staggerCards(cardsRef.current);
-    }
-
-    // Lazy load map
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting && mapRef.current) {
-            const iframe = mapRef.current;
-            if (iframe.dataset.src) {
-              iframe.src = iframe.dataset.src;
-              observer.unobserve(iframe);
-            }
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-
-    if (mapRef.current) {
-      observer.observe(mapRef.current);
-    }
-
-    return () => observer.disconnect();
+    // subtle accessibility: focus name on mount for keyboard users
+    const el = formRef.current?.querySelector<HTMLInputElement>("#name");
+    el?.focus();
   }, []);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
+    setForm((p) => ({ ...p, [name]: value }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitting(true);
-
-    // Simulate form submission
+    setLoading(true);
     try {
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      
+      // simulate send
+      await new Promise((r) => setTimeout(r, 1400));
       toast({
-        title: "Message Sent Successfully!",
-        description: "We'll get back to you within 24 hours.",
-        duration: 5000,
+        title: "Message sent",
+        description: "Thanks — we’ll respond within 24 hours.",
       });
-
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        company: '',
-        message: ''
-      });
-    } catch (error) {
+      setForm({ name: "", email: "", phone: "", company: "", message: "" });
+    } catch {
       toast({
-        title: "Error",
-        description: "Failed to send message. Please try again.",
+        title: "Send failed",
+        description: "Something went wrong. Please try again.",
         variant: "destructive",
       });
     } finally {
-      setIsSubmitting(false);
+      setLoading(false);
     }
   };
 
-  const contactInfo = [
-    {
-      icon: Mail,
-      title: 'Email Us',
-      details: 'info@clariox.in',
-      description: 'Send us an email and we\'ll respond within 24 hours.',
-    },
-    {
-      icon: Phone,
-      title: 'Call Us',
-      details: '+91 9860824779',
-      description: 'Speak directly with our ERPNext experts.',
-    },
-    {
-      icon: MapPin,
-      title: 'Visit Us',
-      details: 'Office No 301 & 302, Krisala Elite 41, Tathawade, PCMC Pune, Maharashtra, India. 411033.',
-      description: 'Schedule an in-person consultation at our office.',
-    },
-    {
-      icon: Clock,
-      title: 'Business Hours',
-      details: 'Mon - Fri: 9:00 AM - 6:00 PM',
-      description: 'We\'re here to help during business hours.',
-    },
-  ];
-
   return (
-    <main className="pt-20">
-      {/* Hero Section */}
-      <section className="py-20 bg-gradient-subtle">
-        <div className="container-custom text-center">
-          <div className="max-w-4xl mx-auto space-y-8">
-            <MaskedHeading as="h1" className="text-5xl md:text-6xl font-bold">
-              Contact Us
-            </MaskedHeading>
-            <AnimatedParagraph className="text-xl text-muted-foreground">
-              Ready to transform your business with ERPNext? Get in touch with our experts 
-              for a free consultation and discover how we can help you achieve your goals.
-            </AnimatedParagraph>
-          </div>
+    <main className="pt-20 font-inter text-gray-900">
+      {/* ---------------- HERO ---------------- */}
+      <section
+        className="relative h-[68vh] flex items-center"
+        aria-label="Contact hero"
+      >
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{
+            backgroundImage: `linear-gradient(135deg, rgba(10,10,15,0.45), rgba(20,18,30,0.45)), url(${heroImage})`,
+            filter: "saturate(0.95)",
+          }}
+        />
+        <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-transparent via-black/10 to-black/30"></div>
+
+        <div className="container-custom relative z-10 max-w-5xl mx-auto px-6 text-white">
+          <motion.div
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+            className="max-w-3xl mx-auto text-center"
+          >
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight">
+              Let’s Create Something Extraordinary
+            </h1>
+            <p className="mt-6 text-lg md:text-xl text-white/90 max-w-2xl mx-auto">
+              We combine craft, code and care to transform ideas into memorable
+              products. Tell us about your project and we’ll help you shape the
+              next chapter.
+            </p>
+
+            <div className="mx-auto mt-8 inline-flex rounded-full bg-white/10 py-1 px-3 backdrop-blur-sm">
+              <div className="h-1 w-36 rounded-full bg-gradient-to-r from-pink-400 via-violet-400 to-indigo-400 animate-[pulse_6s_infinite]"></div>
+            </div>
+          </motion.div>
         </div>
       </section>
 
-      {/* Contact Information */}
-      <section className="py-20">
-        <div className="container-custom">
-          <div ref={cardsRef} className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-            {contactInfo.map((info, index) => (
-              <Card 
-                key={index} 
-                className="card-item text-center hover:shadow-elegant hover:-translate-y-2 transition-all duration-300 border-0 shadow-card"
+      {/* ---------------- VISUAL STORY ---------------- */}
+      <section className="py-16 bg-white">
+        <div className="container-custom px-6 max-w-6xl mx-auto">
+          <motion.div
+            variants={container}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.2 }}
+            className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8 items-start"
+          >
+            <motion.figure variants={item} className="rounded-xl overflow-hidden">
+              <img
+                src={tileA}
+                alt="Workspace - creative"
+                className="w-full h-72 object-cover rounded-xl shadow-md"
+              />
+              <figcaption className="mt-4 text-sm text-gray-600">
+                Ideas sketched, then refined — where strategy meets craft.
+              </figcaption>
+            </motion.figure>
+
+            <motion.figure variants={item} className="lg:col-span-2 grid grid-rows-2 gap-6">
+              <img
+                src={tileB}
+                alt="Sketching"
+                className="w-full h-40 object-cover rounded-xl shadow-md"
+              />
+              <div className="grid grid-cols-2 gap-6">
+                <img
+                  src={tileC}
+                  alt="Light reflections"
+                  className="w-full h-40 object-cover rounded-xl shadow-md"
+                />
+                <div className="rounded-xl p-6 bg-gradient-to-tr from-white/80 to-white/60 shadow-inner backdrop-blur-sm flex flex-col justify-center">
+                  <p className="text-gray-900 font-medium">
+                    Ideas become designs.
+                  </p>
+                  <p className="mt-3 text-sm text-gray-600">
+                    Designs become product experiences that people love.
+                  </p>
+                </div>
+              </div>
+            </motion.figure>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ---------------- FORM + STUDIO PREVIEW ---------------- */}
+      <section className="py-16 bg-[#fbfbfd]">
+        <div className="container-custom px-6 max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
+          {/* left: studio image + quote */}
+          <motion.div
+            initial={{ opacity: 0, x: -18 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
+            className="relative rounded-2xl overflow-hidden shadow-lg"
+          >
+            <img
+              src={studioImage}
+              alt="Studio preview"
+              className="w-full h-[520px] object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
+
+            <div className="absolute bottom-8 left-8 right-8 text-white">
+              <p className="text-sm uppercase tracking-wider text-white/80">
+                Studio
+              </p>
+              <h3 className="mt-2 text-2xl md:text-3xl font-bold">
+                "Every great project begins with a simple hello."
+              </h3>
+              <p className="mt-3 text-sm text-white/90 max-w-[38ch]">
+                Invite us for a conversation — we listen first, then co-create.
+              </p>
+            </div>
+
+            {/* decorative shapes */}
+            <div
+              aria-hidden
+              className="absolute -right-8 -top-8 w-40 h-40 rounded-full bg-gradient-to-br from-pink-300 to-indigo-300 opacity-30 blur-3xl"
+            />
+            <div
+              aria-hidden
+              className="absolute -left-12 -bottom-10 w-36 h-36 rounded-full bg-gradient-to-br from-emerald-300 to-cyan-300 opacity-20 blur-2xl"
+            />
+          </motion.div>
+
+          {/* right: floating glass form */}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.05 }}
+            className="relative"
+          >
+            <div
+              className="rounded-2xl p-8 shadow-2xl"
+              style={{
+                background:
+                  "linear-gradient(180deg, rgba(255,255,255,0.75), rgba(255,255,255,0.60))",
+                backdropFilter: "blur(8px)",
+                border: "1px solid rgba(255,255,255,0.6)",
+              }}
+            >
+              <h4 className="text-lg font-semibold">Let's talk</h4>
+              <p className="mt-2 text-sm text-gray-600">
+                Share a little about your challenge — timelines, goals, and a
+                preferred contact method. We’ll propose the best next step.
+              </p>
+
+              <form
+                ref={formRef}
+                onSubmit={handleSubmit}
+                className="mt-6 space-y-4"
+                aria-label="Contact form"
               >
-                <CardHeader className="pb-4">
-                  <div className="flex justify-center mb-4">
-                    <div className="p-4 bg-primary/10 rounded-full">
-                      <info.icon className="h-6 w-6 text-primary" />
-                    </div>
-                  </div>
-                  <CardTitle className="text-lg font-heading">{info.title}</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-2">
-                  <p className="font-semibold font-body text-foreground">{info.details}</p>
-                  <p className="text-sm text-muted-foreground font-body leading-relaxed">{info.description}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Contact Form & Map */}
-      <section className="py-20 bg-gradient-subtle">
-        <div className="container-custom">
-          <div className="grid lg:grid-cols-2 gap-12 items-start">
-            {/* Contact Form */}
-            <Card className="shadow-elegant border-0">
-              <CardHeader>
-                <CardTitle className="text-2xl font-heading">Book a Call</CardTitle>
-                <p className="text-muted-foreground font-body">
-                  Fill out the form below and we'll schedule a consultation to discuss your needs.
-                </p>
-              </CardHeader>
-              <CardContent>
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div className="grid md:grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="name" className="font-body">Name *</Label>
-                      <Input
-                        id="name"
-                        name="name"
-                        value={formData.name}
-                        onChange={handleInputChange}
-                        required
-                        className="font-body"
-                        placeholder="Your full name"
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="email" className="font-body">Email *</Label>
-                      <Input
-                        id="email"
-                        name="email"
-                        type="email"
-                        value={formData.email}
-                        onChange={handleInputChange}
-                        required
-                        className="font-body"
-                        placeholder="your@email.com"
-                      />
-                    </div>
-                  </div>
-                  
-                  <div className="grid md:grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="phone" className="font-body">Phone</Label>
-                      <Input
-                        id="phone"
-                        name="phone"
-                        type="tel"
-                        value={formData.phone}
-                        onChange={handleInputChange}
-                        className="font-body"
-                        placeholder="+1 (555) 000-0000"
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="company" className="font-body">Company</Label>
-                      <Input
-                        id="company"
-                        name="company"
-                        value={formData.company}
-                        onChange={handleInputChange}
-                        className="font-body"
-                        placeholder="Your company name"
-                      />
-                    </div>
-                  </div>
-                  
-                  <div className="space-y-2">
-                    <Label htmlFor="message" className="font-body">Message *</Label>
-                    <Textarea
-                      id="message"
-                      name="message"
-                      value={formData.message}
-                      onChange={handleInputChange}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  <div>
+                    <Label htmlFor="name" className="text-sm text-gray-700">
+                      Full name
+                    </Label>
+                    <Input
+                      id="name"
+                      name="name"
+                      value={form.name}
+                      onChange={handleChange}
+                      placeholder="Asha Patel"
                       required
-                      rows={4}
-                      className="font-body"
-                      placeholder="Tell us about your business needs and how we can help..."
+                      className="mt-1"
                     />
                   </div>
-                  
+                  <div>
+                    <Label htmlFor="email" className="text-sm text-gray-700">
+                      Email
+                    </Label>
+                    <Input
+                      id="email"
+                      name="email"
+                      value={form.email}
+                      onChange={handleChange}
+                      placeholder="asha@example.com"
+                      type="email"
+                      required
+                      className="mt-1"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  <div>
+                    <Label htmlFor="phone" className="text-sm text-gray-700">
+                      Phone
+                    </Label>
+                    <Input
+                      id="phone"
+                      name="phone"
+                      value={form.phone}
+                      onChange={handleChange}
+                      placeholder="+91 98xxxx xxxx"
+                      className="mt-1"
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="company" className="text-sm text-gray-700">
+                      Company (optional)
+                    </Label>
+                    <Input
+                      id="company"
+                      name="company"
+                      value={form.company}
+                      onChange={handleChange}
+                      placeholder="Company name"
+                      className="mt-1"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <Label htmlFor="message" className="text-sm text-gray-700">
+                    Message
+                  </Label>
+                  <Textarea
+                    id="message"
+                    name="message"
+                    rows={5}
+                    value={form.message}
+                    onChange={handleChange}
+                    placeholder="Tell us about your project, timeline & budget (if any)..."
+                    required
+                    className="mt-1"
+                  />
+                </div>
+
+                <div className="pt-2">
                   <Button
                     type="submit"
-                    size="lg"
-                    disabled={isSubmitting}
-                    className="w-full bg-gradient-primary hover:opacity-90 text-white shadow-elegant hover:shadow-glow transition-all duration-300"
+                    className="w-full py-3 bg-gradient-to-r from-pink-500 via-violet-500 to-indigo-500 text-white font-medium"
+                    disabled={loading}
                   >
-                    {isSubmitting ? (
-                      <>
-                        <div className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent mr-2" />
-                        Sending...
-                      </>
-                    ) : (
-                      <>
-                        Send Message
-                        <Send className="ml-2 h-4 w-4" />
-                      </>
-                    )}
+                    {loading ? "Sending..." : "Send Message"}
                   </Button>
-                </form>
-              </CardContent>
-            </Card>
-
-            {/* Map */}
-            <div className="space-y-6">
-              <div>
-                <h3 className="text-2xl font-bold font-heading mb-4">Find Us</h3>
-                <p className="text-muted-foreground font-body leading-relaxed">
-                  Visit our office for an in-person consultation. We're located in the heart 
-                  of the business district with easy access to public transportation.
-                </p>
-              </div>
-            
-              <Card className="overflow-hidden shadow-elegant border-0">
-                <iframe
-                  ref={mapRef}
-                  data-src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3879.2911455386165!2d73.75017559999999!3d18.6266256!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2b96584570a01%3A0x573013d7d8632530!2sKrisala%2041%20Elite!5e1!3m2!1sen!2sin!4v1758209282622!5m2!1sen!2sin"
-                  width="100%"
-                  height="400"
-                  style={{ border: 0 }}
-                  allowFullScreen
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                  title="Clariox Technologies Location"
-                  className="rounded-lg"
-                />
-              </Card>
+                </div>
+              </form>
             </div>
-          </div>
+
+            {/* small note */}
+            <p className="mt-4 text-xs text-gray-500">
+              We respect your privacy. We will never share your details.
+            </p>
+          </motion.div>
         </div>
       </section>
 
-      {/* Additional CTA */}
-      <section className="py-20 bg-primary text-primary-foreground">
-        <div className="container-custom text-center">
-          <div className="max-w-3xl mx-auto space-y-6">
-            <CheckCircle className="h-16 w-16 text-white mx-auto mb-6" />
-            <h2 className="text-3xl md:text-4xl font-bold font-heading">
-              Free Consultation Available
-            </h2>
-            <p className="text-lg text-primary-foreground/90 font-body">
-              No commitment required. Schedule a free 30-minute consultation to discuss 
-              your business needs and explore how ERPNext can benefit your organization.
+      {/* ---------------- FINAL CTA / FOOTER BANNER ---------------- */}
+      <section className="py-16">
+        <div className="container-custom px-6 max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
+          <div className="md:col-span-2 rounded-xl overflow-hidden">
+            <img
+              src="https://images.unsplash.com/photo-1508780709619-79562169bc64?auto=format&fit=crop&w=1600&q=80"
+              alt="Creative meeting"
+              className="w-full h-64 object-cover rounded-xl shadow-lg"
+            />
+          </div>
+          <div className="rounded-xl p-8 bg-gradient-to-b from-white/95 to-white/80 shadow-xl">
+            <h3 className="text-2xl font-bold">Visit our studio or invite us over</h3>
+            <p className="mt-3 text-sm text-gray-600">
+              We love in-person conversations. If remote is better, we’ll bring the studio to you.
             </p>
+            <div className="mt-6">
+              <Button
+                asChild
+                className="bg-black text-white hover:opacity-95 px-5 py-2"
+              >
+                <a href="/contact">Schedule a visit</a>
+              </Button>
+            </div>
           </div>
         </div>
       </section>
