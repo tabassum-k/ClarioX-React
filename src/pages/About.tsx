@@ -56,7 +56,7 @@ const About: React.FC = () => {
               Who We Are
             </h2>
             <p className="text-gray-600 leading-relaxed">
-              Founded in 2018, Clariox Technologies is a technology consulting
+              Clariox Technologies is a technology consulting
               company specializing in ERPNext implementation, customization, and
               automation. Our mission is to simplify operations for growing
               businesses through intelligent, scalable, and human-centric
@@ -64,7 +64,7 @@ const About: React.FC = () => {
             </p>
             <p className="text-gray-600 leading-relaxed">
               With a passionate team of certified professionals, we’ve helped
-              enterprises across 15+ industries transform their workflows and
+              enterprises across 7+ industries transform their workflows and
               unlock efficiency.
             </p>
           </div>
@@ -148,15 +148,15 @@ const About: React.FC = () => {
             <ul className="space-y-3 text-gray-700">
               <li className="flex items-center">
                 <Target className="h-5 w-5 text-primary mr-2" />
-                <span>500+ successful ERPNext deployments</span>
+                <span>42+ successful ERPNext deployments</span>
               </li>
               <li className="flex items-center">
                 <Users className="h-5 w-5 text-primary mr-2" />
-                <span>Clients in 10+ countries</span>
+                <span>7+ Happy Clients</span>
               </li>
               <li className="flex items-center">
                 <Globe className="h-5 w-5 text-primary mr-2" />
-                <span>Serving 15+ industries worldwide</span>
+                <span>Serving 15+ industries </span>
               </li>
             </ul>
           </div>
@@ -167,11 +167,10 @@ const About: React.FC = () => {
   <section className="py-20 bg-gray-50 text-center">
   <div className="container mx-auto px-6">
     <h2 className="text-3xl md:text-4xl font-semibold mb-6">
-      A Global Footprint
+      A Strong Footprint
     </h2>
     <p className="text-gray-600 max-w-2xl mx-auto mb-10">
-      Clariox Technologies partners with clients across Asia, Africa, the
-      Middle East, and Europe — delivering solutions that scale globally.
+      Clariox Technologies partners with clients across Multiple regions, delivering solutions that scale globally.
     </p>
     <div className="relative w-full overflow-hidden rounded-xl shadow-md max-h-[500px]">
       <img
