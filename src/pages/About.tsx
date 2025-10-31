@@ -146,10 +146,10 @@ const About: React.FC = () => {
               and functional consultants who understand your domain deeply.
             </p>
             <ul className="space-y-3 text-gray-700">
-              <li className="flex items-center">
+              {/* <li className="flex items-center">
                 <Target className="h-5 w-5 text-primary mr-2" />
                 <span>42+ successful ERPNext deployments</span>
-              </li>
+              </li> */}
               <li className="flex items-center">
                 <Users className="h-5 w-5 text-primary mr-2" />
                 <span>7+ Happy Clients</span>

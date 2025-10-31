@@ -5,8 +5,10 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { LineMaskReveal, BlurFadeReveal } from '@/components/animations/ScrollReveal';
 import { staggerCards } from '@/lib/gsap-animations';
+import { useToast } from "@/hooks/use-toast";
 
 const Home: React.FC = () => {
+    const { toast } = useToast();
   useEffect(() => {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }, []);
@@ -15,7 +17,7 @@ const Home: React.FC = () => {
 const [isModalOpen, setIsModalOpen] = useState(false);
   const [email, setEmail] = useState('');
   const [acceptedTnC, setAcceptedTnC] = useState(false);
-
+  const [loading, setLoading] = useState(false);
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => {
     setIsModalOpen(false);
@@ -23,17 +25,61 @@ const [isModalOpen, setIsModalOpen] = useState(false);
     setAcceptedTnC(false);
   };
 
-  const handleSendEmail = () => {
-    if (!email || !acceptedTnC) return;
+const handleSendEmail = async () => {
+  if (!email || !acceptedTnC) return;
+  setLoading(true);
 
-    const subject = encodeURIComponent(`Business Enquiry from ${email}`);
-    const body = encodeURIComponent(
+  try {
+    // 1️⃣ Try Formspree API
+    const formData = new FormData();
+    formData.append("email", email);
+    formData.append(
+      "message",
       `Hello Clariox Team,\n\nI am interested in learning more about your ERPNext solutions.\n\nBest regards,\n${email}`
     );
 
-    window.location.href = `mailto:info@clariox.in?subject=${subject}&body=${body}`;
-    closeModal();
-  };
+    const response = await fetch("https://formspree.io/f/xnnogyan", {
+      method: "POST",
+      body: formData,
+      headers: { Accept: "application/json" },
+    });
+
+    if (response.ok) {
+      toast({
+        title: "Message sent",
+        description: "Thanks — we’ll respond within 24 hours.",
+      });
+      setEmail("");
+      setAcceptedTnC(false);
+      closeModal();
+      return;
+    }
+
+    // 2️⃣ Fallback to mailto if Formspree fails
+    triggerMailto();
+  } catch (err) {
+    // 3️⃣ Fallback on network or fetch failure
+    triggerMailto();
+  } finally {
+    setLoading(false);
+  }
+};
+
+const triggerMailto = () => {
+  const subject = encodeURIComponent(`Business Enquiry from ${email}`);
+  const body = encodeURIComponent(
+    `Hello Clariox Team,\n\nI am interested in learning more about your ERPNext solutions.\n\nBest regards,\n${email}`
+  );
+
+  window.location.href = `mailto:info@clariox.in?subject=${subject}&body=${body}`;
+  toast({
+    title: "Email client opened",
+    description: "If sending failed, you can manually send via your email app.",
+  });
+  closeModal();
+};
+
+
   useEffect(() => {
     if (servicesRef.current) {
       staggerCards(servicesRef.current);
@@ -70,7 +116,7 @@ const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <main>
-      {isModalOpen && (
+{isModalOpen && (
   <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
     <div className="bg-white dark:bg-gray-900 rounded-xl max-w-md w-full p-8 relative shadow-xl">
       {/* Close Button */}
@@ -81,7 +127,9 @@ const [isModalOpen, setIsModalOpen] = useState(false);
         ✕
       </button>
 
-      <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Send Enquiry</h2>
+      <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">
+        Send Enquiry
+      </h2>
       <p className="text-sm mb-6 text-gray-600 dark:text-gray-300">
         Please provide your email and accept our Terms & Conditions to proceed.
       </p>
@@ -102,24 +150,30 @@ const [isModalOpen, setIsModalOpen] = useState(false);
             onChange={(e) => setAcceptedTnC(e.target.checked)}
             className="w-4 h-4 accent-primary"
           />
-          <span>I accept the <Link to="/" className="text-primary underline">Terms & Conditions</Link></span>
+          <span>
+            I accept the{" "}
+            <Link to="/" className="text-primary underline">
+              Terms & Conditions
+            </Link>
+          </span>
         </label>
 
         <Button
           size="lg"
           onClick={handleSendEmail}
-          disabled={!email || !acceptedTnC}
+          disabled={!email || !acceptedTnC || loading}
           className={`
             w-full bg-gradient-primary text-white rounded-xl py-3 px-6 transition-all duration-300
-            ${!email || !acceptedTnC ? 'opacity-50 cursor-not-allowed' : 'hover:opacity-90'}
+            ${!email || !acceptedTnC ? "opacity-50 cursor-not-allowed" : "hover:opacity-90"}
           `}
         >
-          Send Email
+          {loading ? "Sending..." : "Send Email"}
         </Button>
       </div>
     </div>
   </div>
 )}
+
 
       {/* Hero Section */}
     <section className="relative min-h-[100vh] flex items-center justify-center px-0 overflow-hidden pb-[10%]">

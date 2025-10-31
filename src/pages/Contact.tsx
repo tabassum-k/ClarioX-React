@@ -45,6 +45,7 @@ const Contact: React.FC = () => {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }, []);
 
+
   const { toast } = useToast();
   const [form, setForm] = useState({
     name: "",
@@ -69,27 +70,65 @@ const Contact: React.FC = () => {
     setForm((p) => ({ ...p, [name]: value }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-    try {
-      // simulate send
-      await new Promise((r) => setTimeout(r, 1400));
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+  setLoading(true);
+
+  try {
+    const formData = new FormData();
+    formData.append("name", form.name);
+    formData.append("email", form.email);
+    formData.append("phone", form.phone);
+    formData.append("company", form.company);
+    formData.append("message", form.message);
+
+    const response = await fetch("https://formspree.io/f/xnnogyan", {
+      method: "POST",
+      body: formData,
+      headers: { Accept: "application/json" },
+    });
+
+    if (response.ok) {
       toast({
         title: "Message sent",
         description: "Thanks — we’ll respond within 24 hours.",
       });
       setForm({ name: "", email: "", phone: "", company: "", message: "" });
-    } catch {
-      toast({
-        title: "Send failed",
-        description: "Something went wrong. Please try again.",
-        variant: "destructive",
-      });
-    } finally {
-      setLoading(false);
+    } else {
+      // fallback if Formspree rejects
+      triggerMailto(form);
     }
-  };
+  } catch (err) {
+    // fallback if network or CORS error
+    triggerMailto(form);
+  } finally {
+    setLoading(false);
+  }
+};
+
+
+
+const triggerMailto = (form) => {
+  const subject = encodeURIComponent(`Business Enquiry from ${form.name || form.email}`);
+  const body = encodeURIComponent(
+    `Hello Clariox Team,\n\n` +
+      `You have a new enquiry from your website:\n\n` +
+      `Name: ${form.name}\n` +
+      `Email: ${form.email}\n` +
+      `Phone: ${form.phone}\n` +
+      `Company: ${form.company}\n\n` +
+      `Message:\n${form.message}\n\n` +
+      `Best regards,\n${form.name || "Website Visitor"}`
+  );
+
+  window.location.href = `mailto:info@clariox.in?subject=${subject}&body=${body}`;
+
+  toast({
+    title: "Email client opened",
+    description: "Formspree failed — you can manually send via your email app.",
+  });
+};
+
 
   return (
     <main className="pt-20 font-inter text-gray-900">
