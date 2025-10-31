@@ -23,7 +23,7 @@ const About: React.FC = () => {
         className="relative h-[70vh] flex items-center justify-center bg-cover bg-center"
         style={{
           backgroundImage:
-            "url('https://images.unsplash.com/photo-1556761175-129418cb2dfe?auto=format&fit=crop&w=1800&q=80')",
+            "url('https://images.unsplash.com/photo-1593642634315-48f5414c3ad9?auto=format&fit=crop&w=1200&q=80')",
         }}
       >
         <div className="absolute inset-0 bg-black/60"></div>
@@ -71,7 +71,7 @@ const About: React.FC = () => {
 
           <div className="rounded-xl overflow-hidden shadow-lg">
             <img
-              src="https://images.unsplash.com/photo-1593642634315-48f5414c3ad9?auto=format&fit=crop&w=1200&q=80"
+              src="https://res.cloudinary.com/de6u5kbiw/image/upload/v1761924962/clariox/erpNext_1_cknhzz.jpg"
               alt="Our Office"
               className="w-full h-full object-cover"
             />

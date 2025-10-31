@@ -99,4 +99,5 @@
 |-- tsconfig.app.json
 |-- tsconfig.json
 |-- tsconfig.node.json
+|-- vercel.json
 |-- vite.config.ts
